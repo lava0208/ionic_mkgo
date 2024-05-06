@@ -1,0 +1,73 @@
+<ion-content>
+    <div class="flex">
+        <img src="../../assets/image/fond%20noir%20(1).png" style="position: relative ; width: 170px;bottom: 20px;background-size: cover;
+  background-repeat:no-repeat ;">
+    <div *ngIf="isLoaded">
+        <div class="spin">
+            <ion-spinner name="circles" color="tertiary"></ion-spinner>
+        </div>
+    </div>
+        <div *ngIf="!isLoaded" class="Input_Fields" padding>
+            <form [formGroup]="loginForm" novalidate>
+                <ion-list>
+                <ion-item lines="inset">
+
+                    <ion-input type="email" formControlName="email" placeholder="E-mail" mode="md"></ion-input>
+                </ion-item>
+                <div class="error"
+                     *ngIf="submitted && loginForm.get('email').hasError('required') && loginForm.get('email').touched">
+                    Il faut Entrer votre Email
+                </div>
+                <div class="error"
+                     *ngIf="submitted && loginForm.get('email').hasError('email') && loginForm.get('email').touched">
+                    Adresse email invalide
+                </div>
+                <ion-item lines="inset">
+                    <ion-input [type]="getType()" formControlName="password" placeholder="Mot de Passe"
+                               mode="md"></ion-input>
+                    <ion-icon name="eye" item-right (click)="toggleTextPassword()"></ion-icon>
+                </ion-item>
+                <div class="error"
+                     *ngIf="submitted && loginForm.get('password').hasError('required') && loginForm.get('password').touched">
+                    Il faut Entrer votre Mot de Passe
+                </div></ion-list>
+
+                <ion-grid>
+                    <ion-row class="ion-align-items-center">
+                        <ion-col size="2" class="ion-text-center">
+
+                        </ion-col>
+
+                        <ion-col size="8" class="ion-text-center">
+                            <ion-button [disabled]="!loginForm.valid || submitted" style="   margin-top: 35px;
+height: 48px;
+font-size: 18px;
+text-transform: initial;
+border-radius: 50px;
+box-shadow: 1px 8px 8px 0px rgba(0, 0, 0, 0.05);
+--box-shadow: none;" expand="block"  color="secondary" (click)="LoginUser(loginForm.value)"
+                                        shape="round">Login</ion-button><p class="signup">
+                            <ion-note>
+                                Pas de compte?
+                                <ion-text routerLink="/inscription" color="secondary">S'inscrire</ion-text>
+                            </ion-note>
+                        </p>
+                        </ion-col>
+                        <ion-col size="2" class="ion-text-center">
+
+                        </ion-col>
+                    </ion-row>
+                    <div>
+                        <ng-container>
+                           <div class="error_message"
+                              *ngIf="msg">
+                              {{msg}}
+                           </div>
+                        </ng-container>
+                     </div>
+                </ion-grid>
+            </form>
+        </div>
+    </div>
+</ion-content>
+

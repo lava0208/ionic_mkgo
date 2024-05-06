@@ -1,0 +1,306 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar color="primary" no-border>
+        <ion-buttons slot="start">
+            <ion-menu-toggle autoHide="false">
+                <ion-button>
+                    <img src="../../../../assets/image/menu.svg"/>
+                </ion-button>
+            </ion-menu-toggle>
+        </ion-buttons>
+
+        <ion-title>
+            Nouvelle course
+        </ion-title>
+
+        <ion-buttons slot="end">
+            <ion-icon (click)="cancel()" style="color: white;font-size: 20px" slot="start" name="arrow-back"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content scroll-x="true" id="pickup">
+    <div class="spin" *ngIf="!isLoaded">
+        <ion-spinner name="circles" color="secondary"></ion-spinner>
+    </div>
+    <div *ngIf="isLoaded">
+        <ion-card>
+            <form [formGroup]="courseForm">
+                <ion-list>
+                    <ion-item-divider color="light">
+                        <ion-label color="secondary" style="font-family: var(--ion-font-family,inherit)">
+                            Espace Course
+                        </ion-label>
+                    </ion-item-divider>
+                    <p>Choisir Type course</p>
+                            <ion-radio-group mode=ios (ionChange)="getallclient($event)"
+                                formControlName="medical">
+                                <ion-grid>
+                                    <ion-row>
+                                      <ion-col class="ion-align-self-center" style="text-align: center;" *ngFor="let trail of types">
+                                        <ion-radio [value]="trail.id"
+                                        (click)="courseForm.get('paiement').setValue('En compte')">{{ trail.libelle}}
+                                        </ion-radio>
+                                        <ion-label>{{ trail.libelle}}</ion-label>
+                                      </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </ion-radio-group>
+                    <p>Choisir Licence</p>
+                    <ion-item lines="full">
+                        <ion-label>Appartient à</ion-label>
+                        <ion-select okText="OK" cancelText="FERMER" placeholder="Appartient à" formControlName="licence" id="licence" mode="ios" class="ion-text-capitalize">
+                            <ion-select-option *ngFor="let e of listlicence" value={{e.id}}>{{e.libelle | uppercase }}
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-accordion-group>
+                        <ion-accordion>
+                          <ion-item slot="header" color="light">
+                            <ion-label style=" color:#3c54a3 ;">Sélectionner la date</ion-label>
+                          </ion-item>
+                          <div slot="content">
+                           <ion-item>
+                              <ion-datetime
+                              locale="fr-FR"
+                              mode="ios" 
+                               (ionChange)="momentDateFr($event)"
+                                formControlName="start"
+                                presentation="time-date"
+                                showDefaultTimeLabel="false"
+                                done-text="Accepter"
+                                cancel-text="Annuler"
+                                min="1950" max="2099-10-31"
+                                displayFormat="YYYY-MM-DD"
+                                pickerFormat="YYYY-MM-DD"></ion-datetime>
+                              <ion-icon name="calendar" slot="end"></ion-icon>
+                            </ion-item>
+                          </div>
+                        </ion-accordion>
+                      </ion-accordion-group>
+                    <ion-item lines="full">
+                        <ion-input type="text" (click)="focusInput($event)" formControlName="commentaire" placeholder="Commentaire"></ion-input>
+                    </ion-item>
+                </ion-list>
+                <ion-list id="clients" *ngIf="courseForm.value.medical" style="background: #f0f8ff;">
+                    <ion-item-divider>
+                        <ion-label>
+                            Espace Client
+                        </ion-label>
+                        <img slot="end" (click)="addItem()" title="Ajouter Client"
+                            src="assets/image/add-user%20(1).png" />
+                    </ion-item-divider>
+                    <div formArrayName="courseClients"
+                        *ngFor="let item of courseForm.get('courseClients')['controls']; let i = index;">
+                        <ng-container [formGroupName]="i">
+
+                            <ion-item lines="full">
+                                <ion-thumbnail slot="start" (click)="presentModal($event,courseForm.value.medical,i)">
+                                    <img  id="ajout{{i}}" src="assets/image/add-contact.png">
+                                </ion-thumbnail>
+                                <ion-badge>{{i + 1}}</ion-badge>
+                                <ion-thumbnail slot="end" (click)="presentModal($event,courseForm.value.medical,i)">
+                                    <img src="assets/image/delete.png" (click)="delete(i)">
+                                </ion-thumbnail>
+
+                                <ionic-selectable  *ngIf="listclients" id="clientselect{{i}}" title="Client" formControlName="client" [items]="listclients" itemValueField="id"
+                                    itemTextField="nom" [canSearch]="true" [canClear]="true" [hasVirtualScroll]="true"
+                                    closeButtonText=" "
+                                    searchPlaceholder="Chercher"
+                                    clearButtonText="Annuler"
+                                    (onChange)="newcourseclient(i,courseForm?.value.courseClients[i].client)">
+                                    <ng-template ionicSelectablePlaceholderTemplate>
+                                        <span style="color: black;">Sélectionner - Client {{i + 1}}</span>
+                                    </ng-template>
+                                    <ng-template ionicSelectableSearchFailTemplate>
+                                        <div class="ion-padding">
+                                            Aucun résultat ne trouvé
+                                        </div>
+                                    </ng-template>
+                                    <ng-template ionicSelectableTitleTemplate
+                                        style="background-color: #080160!important; font-size: 14px">
+                                        Choisir Client
+                                    </ng-template>
+                                    <ng-template ionicSelectableItemIconTemplate let-port="item"
+                                    let-isPortSelected="isItemSelected">
+                                  </ng-template>
+                                    <ng-template ionicSelectableItemTemplate let-port="item" let-isPortSelected="isItemSelected">
+                                        {{port.civilite?port.civilite+'.&nbsp;':''}} {{port.nom}} {{port.prenom?'('+port.prenom+')':''}}
+                                    </ng-template>
+                                </ionic-selectable>
+                                <div style="display: inline-bloc;vertical-align: center;">
+                                    <ion-spinner name="dots" *ngIf="!listclients"></ion-spinner>
+                                </div> 
+                            </ion-item>
+    
+    
+                            <ion-input id="client{{i}}" mode="ios" style="display: none">
+                            </ion-input>
+
+                            <ion-item color="success" *ngIf="trajetsClient[i]&&trajetsClient[i][0]">
+                                <ion-label>Ajouter trajet</ion-label>
+                                <img style="width: 18px" slot="end" (click)="presentModalTrajet($event,courseForm?.value.courseClients[i].client,i)" title="Ajouter Trajet"
+                                src="assets/image/addition.png" />
+                            </ion-item>
+                            <ion-slides *ngIf="courseForm?.value.courseClients[i].client" pager="true" loop="true" (ionSlideDidChange)="slideChanged(i,courseForm?.value.courseClients[i].client)">
+                                <ion-slide *ngFor="let t of courseForm?.value.courseClients[i].client.trajets; let j = index;">
+                                    <h3>Trajet : {{t.nom}}</h3>
+                                </ion-slide>
+                            </ion-slides>
+                            <ion-item color="danger" *ngIf="trajetsClient[i]&&!trajetsClient[i][0]">
+                                <ion-label>Pas de trajet</ion-label>
+                                <img style="width: 18px" slot="end" (click)="presentModalTrajet($event,courseForm?.value.courseClients[i].client,i)" title="Ajouter Trajet"
+                                src="assets/image/addition.png" />
+                            </ion-item>
+
+                            <div *ngIf="trajetsClient[i]&&trajetsClient[i][0]">
+                                <ion-item>
+                                    <ion-input formControlName="trajet" id="trajet{{i}}" mode="ios" style="display: none">
+                                    </ion-input>
+                                    <ion-label position="fixed">Départ *</ion-label>
+                                    <ion-input style="font-size: 0.6rem;" readonly id="departmodif{{i}}" formControlName="depart">
+                                    </ion-input>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="fixed">Destination *</ion-label>
+                                    <ion-input style="font-size: 0.6rem;" readonly id="arriveinput_{{i}}" formControlName="destination">
+                                    </ion-input>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="fixed">Téléphone *</ion-label>
+                                    <ion-input readonly (click)="focusInput($event)" id="tel{{i}}" type="text" formControlName="tel">
+                                    </ion-input>
+                                </ion-item>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item *ngIf="courseForm?.value?.medical===2">
+                                            <ion-label position="fixed">N° Sécurité sociale *</ion-label>
+                                            <ion-input readonly (click)="focusInput($event)" id="numSecusocial{{i}}" type="text"
+                                                formControlName="securitesocial"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-item *ngIf="courseForm?.value?.medical===2">
+                                            <ion-label position="fixed">Type mutuelle *</ion-label>
+                                            <ion-input readonly (click)="focusInput($event)" id="mutuelle{{i}}" type="text" formControlName="typemutuelle">
+                                            </ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col size="4">
+                                        <ion-item>
+                                            <ion-label position="floating">Distance *</ion-label>
+                                            <ion-input readonly *ngIf="courseForm?.value.courseClients[i].distance!=='1 m'" placeholder="---"
+                                                (click)="focusInput($event)" id="Distance{{i}}" type="text" formControlName="distance"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                    <ion-col size="4">
+                                        <ion-item>
+                                            <ion-label position="floating">Durée *</ion-label>
+                                            <ion-input readonly *ngIf="courseForm?.value.courseClients[i].dureetext!=='1 minute'" placeholder="---"
+                                                (click)="focusInput($event)" id="Duree{{i}}" type="text" formControlName="dureetext"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                    <ion-col size="4">
+                                        <ion-item>
+                                            <ion-label position="floating">Tarif *</ion-label>
+                                            <ion-input readonly placeholder="---"
+                                                (click)="focusInput($event)" id="Tarif{{i}}" type="text" formControlName="tarif"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </ng-container>
+                    </div>
+                </ion-list>
+                <ion-list>
+                    <ion-item-divider color="light">
+                        <ion-label color="secondary" style="font-family: var(--ion-font-family,inherit)">
+                            Espace Payment
+                        </ion-label>
+                    </ion-item-divider>
+                    <ion-list>
+                        <ion-item *ngIf="courseForm?.value?.medical===1">
+                            <ion-label position="floating">Tarif *</ion-label>
+                            <ion-input type="number" (click)="focusInput($event)" formControlName="tarif"></ion-input>
+                        </ion-item>
+                        <ion-item *ngIf="courseForm?.value?.medical!==1">
+                            <ion-label> Mode Paiement</ion-label>
+                            <ion-label slot="end" class="ion-text-end">
+                                {{courseForm?.value?.paiement}}
+                            </ion-label>
+                        </ion-item>
+                        <ion-item *ngIf="courseForm?.value?.medical===1">
+                            <ion-label> Mode Paiement</ion-label>
+                            <ion-select formControlName="paiement" placeholder="Mode Paiement *" mode="ios"
+                                class="ion-text-capitalize">
+                                <ion-select-option *ngFor="let p of modepayments" value="{{p}}">{{p}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item *ngIf="courseForm?.value?.paiement==='En compte'">
+                            <ion-label position="floating"></ion-label>
+                            <ion-select formControlName="entreprise" placeholder=" Choisir Entreprise *" mode="ios"
+                                class="ion-text-capitalize">
+                                <ion-select-option *ngFor="let ent of listentreprise" value={{ent.id}}>{{ent.raiso}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <br>
+                    </ion-list>
+                    <span *ngIf="courseForm?.value?.medical===4">
+                        <ion-item-divider color="light">
+                            <ion-label color="secondary" style="font-family: var(--ion-font-family,inherit)">
+                                Autre Information
+                            </ion-label>
+    
+                        </ion-item-divider>
+                        <ion-item>
+                            <ion-label position="floating">kilometrage *</ion-label>
+                            <ion-input (click)="focusInput($event)" type="number" formControlName="kilometrage"></ion-input>
+                        </ion-item>
+                    </span>
+                    <ion-item-divider color="light" *ngIf="courseForm?.value?.medical===2">
+                        <ion-label color="secondary" style="font-family: var(--ion-font-family,inherit)">
+                            Espace médical
+                        </ion-label>
+    
+                    </ion-item-divider>
+                    <ion-list *ngIf="courseForm?.value?.medical===2">
+                        <ion-item>
+                            <ion-label position="floating">kilometrage *</ion-label>
+                            <ion-input (click)="focusInput($event)" type="number" formControlName="kilometrage"></ion-input>
+                        </ion-item>
+    
+                        <br>
+                    </ion-list>
+                    <ion-list *ngIf="courseForm?.value?.medical===2">
+                        <ion-item>
+                            <ion-label (click)="selectImage1()">
+                                <ion-icon style="color: #3b5998;font-size: 20px" name="document" mode="ios"></ion-icon>
+                                &nbsp;Fichier
+                                1:
+                            </ion-label>
+    
+                            <input hidden class="ion-hide" type="file" (change)="onFileChange1($event)" id="file-input1">
+                            {{imageFileName1}}
+                        </ion-item>
+                        <ion-item>
+                            <ion-label (click)="selectImage2()">
+                                <ion-icon style="color: #3b5998;font-size: 20px" name="document" mode="ios"></ion-icon>
+                                &nbsp;Fichier
+                                2:
+                            </ion-label>
+    
+                            <input hidden class="ion-hide" type="file" (change)="onFileChange2($event)" id="file-input2">
+                            {{imageFileName2}}
+                        </ion-item>
+                    </ion-list>
+                    <ion-button [disabled]="submited  || courseForm.invalid" id="ajouter" color="primary" class="submit-btn" expand="block" type="submit"
+                        (click)="onSubmit()">
+                        Ajouter
+                    </ion-button>
+                </ion-list>
+            </form>
+        </ion-card>
+    </div>
+</ion-content>

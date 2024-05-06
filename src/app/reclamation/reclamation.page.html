@@ -1,0 +1,70 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar color="primary" no-border>
+        <ion-buttons slot="start">
+            <ion-menu-toggle autoHide="false">
+                <ion-button>
+                    <img src="../../../../assets/image/menu.svg"/>
+                </ion-button>
+            </ion-menu-toggle>
+        </ion-buttons>
+
+        <ion-title>
+            Réclamation
+        </ion-title>
+
+        <ion-buttons slot="end">
+            <ion-icon (click)="cancel()" style="color: white;font-size: 20px" slot="start" name="arrow-back"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div class="spin">
+        <div class="spin" *ngIf="!isLoaded">
+            <ion-spinner name="circles" color="primary"></ion-spinner>
+        </div>
+        <div *ngIf="isLoaded" style="margin-top:130px">
+            <img src="../../assets/image/confused.png" style="text-align: center;">
+              <div class="" >
+                  <form [formGroup]="registerForm" novalidate>
+                      <ion-list>
+                          <ion-item lines="inset" style="  border: 1px solid var(--ion-color-medium);
+                  border-radius: 10px;">
+          
+                              <ion-textarea style="height: 8rem" formControlName="remarque" placeholder="Votre Remarque"
+                                            mode="md"></ion-textarea>
+                          </ion-item>
+                          <div class="error"
+                               *ngIf="submitted || registerForm.get('remarque').hasError('required') && registerForm.get('remarque').touched">
+                              Il faut Entrer le contenue de votre Remarque
+                          </div>
+          
+          
+                      </ion-list>
+          
+                      <ion-grid>
+                          <ion-row class="ion-align-items-center">
+
+                              <ion-col class="ion-text-center">
+                                  <ion-button style="
+          height: 48px;
+          font-size: 18px;
+          text-transform: initial;
+          border-radius: 50px;
+          box-shadow: 1px 8px 8px 0px rgba(0, 0, 0, 0.05);
+          --box-shadow: none;" expand="block" color="secondary" (click)="addreclamation()"
+                                              shape="round">Envoyer
+                                  </ion-button>
+                                  <p class="signup">
+          
+                                  </p>
+                              </ion-col>
+                          </ion-row>
+                      </ion-grid>
+                  </form>
+              </div>
+        </div>
+    </div>
+</ion-content>
+
+
+

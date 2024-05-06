@@ -1,0 +1,55 @@
+<ion-content>
+
+    <ion-list style="margin:4%">
+
+        <form style="box-sizing: content-box" >
+
+            <ion-label><span><b>Status </b></span></ion-label>
+            <ion-radio-group [(ngModel)]="status1" [ngModelOptions]="{standalone: true}">
+                <ion-item>
+                    <ion-label>accepter</ion-label>
+                    <ion-radio slot="start" value="1"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>refuser</ion-label>
+                    <ion-radio slot="start" value="2"></ion-radio>
+                </ion-item>
+            </ion-radio-group>
+            <form [formGroup]="formrefus">
+            <ion-item *ngIf="status1==='2'">
+                <ion-label position="floating">Motif de refus</ion-label>
+                <div>
+                    <ion-input type="text"
+                               formControlName="motifrefus" ></ion-input>
+                </div>
+            </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.motifrefus">
+                    <div class="error-message"
+                         *ngIf="submit&&formrefus.get('motifrefus').hasError(validation.type)">
+                        {{ validation.message }}
+                    </div>
+                </ng-container>
+            </div>
+
+            <ion-toolbar>     <ion-button  style="--border-radius: 50rem;--background: #949bb7 ;float: right"   type="submit" text-capitalize
+                                           (click)="closePopover()">
+                Fermer
+            </ion-button>
+                <ion-button style="--border-radius: 50rem ;float: right" *ngIf="status1==='2'" color="secondary" type="submit" text-capitalize
+                            (click)="refuserraffectation(status1)">
+                    enregistrer
+                </ion-button>
+                <ion-button  style="--border-radius: 50rem;float: right"   *ngIf="status1!='2'"  color="secondary" type="submit" text-capitalize
+                            (click)="accepteraffectation(status1);closePopover()">
+                    enregistrer
+                </ion-button>
+
+            </ion-toolbar></form>
+
+        </form>
+
+
+
+    </ion-list>
+</ion-content>

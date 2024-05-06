@@ -1,0 +1,491 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"/>
+
+<ion-header class="ion-no-border">
+
+    <ion-grid style="background-color: #3c54a3">
+        <ion-row *ngIf="segmenValue!='passé';else contenu_pas_bon1">
+
+            <ion-col size="1" class="ion-align-self-center">
+                <ion-menu-toggle autoHide="false">
+
+
+                    <img src="../../assets/image/menu.svg"/>
+
+                </ion-menu-toggle>
+            </ion-col>
+
+            <ion-col size="4" class="ion-align-self-center">
+                                <ion-select interface="popover" style="color: #222428;   font-family: CustomFont;
+                   font-size: 14px;
+                   border-radius: 9px;
+                   text-align: center;
+                  font-weight: bold;
+                 background-color: white;
+                 padding: 8px;
+                 "
+                                            [(ngModel)]="filter"
+                                            (ionChange)="getcourseByIdemployeefinal1(filter,segmenValue)"
+                                            text-capitalize>
+
+                                    <ion-select-option
+                                            value="" selected="">
+                                        Type:
+                                    </ion-select-option>
+                                    <ion-select-option *ngFor="let select of list" value={{select.value}}>
+                                        {{select.text}}
+                                    </ion-select-option>
+                                    <ion-icon color="danger" name="arrow-dropdown-circle"
+                                              class="ion-align-self-center"></ion-icon>
+
+                               </ion-select>
+
+            </ion-col>
+            <ion-col size="3" class="ion-align-self-center">
+                <ion-button *ngIf="dispatcher"
+                            style="width: auto "
+                            color="success">
+                    <p style="color: white;margin-bottom: 4%;margin-top: 4%"
+                       text-capitalize=""
+                       class="ion-text-lowercase"><span
+                            style="color: #3f51b5">Dispatcheur:</span><BR>
+                        {{dispatcher?.nom}}  {{dispatcher?.prenom}}</p>&nbsp;&nbsp;<a
+                        style="color: #0f1d88cf"
+                        href="tel:{{dispatcher?.tel}}">
+                    <ion-icon name="call"></ion-icon>
+                </a></ion-button>
+                <ion-button *ngIf="!dispatcher" style="width: auto" color="success">
+                    <p style="color: white;text-align: start  ; margin-bottom: 3%;margin-top: 5%"
+
+                       class="ion-text-lowercase"><span
+                            style="color: #3f51b5">Dispatcheur:</span><BR>
+                        pas de dispatcheur
+                    </p></ion-button>
+            </ion-col>
+
+
+        </ion-row>
+
+        <ng-template #contenu_pas_bon1>
+            <ion-row class="marginTop">
+                <ion-col size="1" class="thumbnail">
+                    <ion-menu-toggle autoHide="false">
+
+
+                        <ion-menu-button
+                                style="--color: white; float: left;font-size: 30px; position: absolute;left: 0;bottom:3px;"></ion-menu-button>
+                    </ion-menu-toggle>
+                </ion-col>
+
+                <ion-col size="4" style="top: 0.3rem">
+
+                    <ion-input style="color: #222428;   font-family: CustomFont;
+                                         font-size: 14px;
+                                         border-radius: 9px;
+                                         text-align: center;
+                                         font-weight: bold;
+                                         background-color: white;
+                                         height: 80%;
+                                         width: 100%;" [(ngModel)]="myDateNTime" value="myDateNTime"
+                               placeholder="DD-MM-YYYY" id="dateinput"
+                               readonly="readonly"
+                               (click)="showDateTimepicker($event)">
+                        <ion-icon style=" color:darkred;margin-inline-end: -16px !important;"
+                                  name="close-circle"></ion-icon>
+                    </ion-input>
+                </ion-col>
+
+                <ion-col size="3" class="ion-text-center">
+                    <ion-button *ngIf="dispatcher"
+                                style="width: auto "
+                                color="success">
+                        <p style="color: white;
+    margin-bottom: 3%;margin-top: 1%"
+                           text-capitalize=""
+                           class="ion-text-lowercase"><span
+                                style="color: #3f51b5">Dispatcheur:</span><BR>
+                            {{dispatcher?.nom}}  {{dispatcher?.prenom}}</p>&nbsp;&nbsp;<a
+                            style="color: #0f1d88cf"
+                            href="tel:{{dispatcher?.tel}}">
+                        <ion-icon name="call"></ion-icon>
+                    </a></ion-button>
+                    <ion-button *ngIf="!dispatcher" style="width: auto" color="success">
+                        <p style="color: white;text-align: start;margin-bottom: 3%;margin-top: 5%"
+
+                           class="ion-text-lowercase"><span
+                                style="color: #3f51b5">Dispatcheur:</span><BR>
+                            pas de dispatcheur
+                        </p></ion-button>
+                </ion-col>
+
+            </ion-row>
+        </ng-template>
+
+
+    </ion-grid>
+
+    <ion-segment [(ngModel)]="segmenValue" (ionChange)="doRefresh('null')">
+        <ion-segment-button value="passé">
+            <ion-label>Passé</ion-label>
+        </ion-segment-button>
+        <ion-segment-button checked value="Aujourdhui"
+                            >
+            <ion-label>Aujourd'hui</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="avenir"
+                            >
+            <ion-label>Avenir</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+</ion-header>
+<ion-content id="home">
+    <ion-refresher slot="fixed" style="z-index:2;background-color: transparent" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <div class="spin" *ngIf="!isLoaded">
+        <ion-spinner name="circles" color="primary"></ion-spinner>
+    </div>
+    <div *ngIf="isLoaded&&data&&data.length > 0">
+        <!-- liste course Aujourdh'hui + Avenir -->
+        <div *ngIf="segmenValue != 'passé'">
+            <ion-card *ngFor="let aff of data;let i = index">
+                <ion-item id="item1" lines="none">
+                    <a  slot="start" href="tel:{{aff?.course?.courseClients[0]?.tel}}">
+                        <ion-icon class="ref-icon" name="call" slot="start"></ion-icon>
+                    </a>
+                  <ion-label class="ref-label ion-text-wrap">
+                    {{aff?.course?.courseClients[0]?.client.nom}}&nbsp;{{aff?.course?.courseClients[0]?.client.prenom}}
+                  </ion-label>
+                  <ion-label class="ref-time" slot="start">{{segmenValue==='Aujourdhui'?(formatTimeZone(aff?.course.start)):formatTimeDateZone(aff?.course.start) +' à '+ formatTimeZone(aff?.course.start)}}</ion-label>
+                  <!--<ion-button fill="outline" slot="end">View</ion-button>-->
+                </ion-item>
+                <ion-grid id="addr" style="padding-top: 0;padding-bottom: 0" (click)="goToChat(aff?.course?.id)">
+                    <ion-row>
+                      <ion-col size="5" style="text-align: left" class="ion-align-self-start">
+                        <p>
+                            <span style="font-weight: bold!important;">                            
+                                {{aff.course.courseClients[0].depart?aff.course.courseClients[0].depart.split(':')[0]+' : ':''}}
+                            </span>
+                            <span>
+                                {{aff.course.courseClients[0].depart?aff.course.courseClients[0].depart.split(':')[1]:''}}<br>
+                            </span>
+                        </p>
+                      </ion-col>
+                      <ion-col size="2" style="text-align: center" class="ion-align-self-start">
+                        <ion-icon name="arrow-round-forward"></ion-icon>
+                      </ion-col>
+                      <ion-col size="5" style="text-align: left" class="ion-align-self-start">
+                        <p>
+                            <span style="font-weight: bold!important;">                            
+                                {{aff.course.courseClients[0].destination?aff.course.courseClients[0].destination.split(':')[0]+' : ':''}}
+                            </span>
+                            <span>
+                                {{aff.course.courseClients[0].destination?aff.course.courseClients[0].destination.split(':')[1]:''}}<br>
+                            </span>
+                        </p>
+                      </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+                <ion-item id="item2" lines="full">
+                    <!--<ion-icon class="ref-icon" name="logo-model-s" slot="start"></ion-icon>-->
+                    <ion-img *ngIf="aff?.course.medical==='2'" slot="start"
+                    style="width:30px!important;"
+                    src="../../assets/image/ambulance.jpg"></ion-img>
+           <ion-img *ngIf="aff?.course.medical==='1'" slot="start"
+                    style="width:30px!important;"
+                    src="../../assets/image/taxi.jpg"></ion-img>
+
+           <ion-img *ngIf="aff?.course.medical==='4'" slot="start"
+                    style="width:30px!important;"
+                    src="../../assets/image/school.png"></ion-img>
+                    <!--<ion-label *ngIf="aff?.course.medical==='2'" class="ref-label" slot="start">Medical</ion-label>
+                    <ion-label *ngIf="aff?.course.medical==='1'" class="ref-label" slot="start">Taxi</ion-label>
+                    <ion-label *ngIf="aff?.course.medical==='4'" class="ref-label" slot="start">Eleve</ion-label>-->
+
+                    <div *ngIf="typeChauffeur!=='Eleve'&&aff?.course['medical']!=='4'">
+                        <img
+                    style="text-align: center; width: 26px;float: right;
+                 height: 26px; margin-top: 5px;margin-left: 20px;" src="assets/image/refaire.png"
+                    (click)="confirmPanier(aff?.course.id,aff?.course?.affectationcourses[aff?.course?.affectationcourses?.length-1].replace('/api/affectationcourses/',''),aff.course.affecta)"/>
+    
+                    </div>
+
+                    <ion-icon class="ref-time" name="contact"></ion-icon>
+                    <ion-label class="ref-label2">{{aff?.course?.courseClients?aff?.course?.courseClients.length:''}}</ion-label>
+                </ion-item>
+    
+                <ion-accordion-group (click)="SwipeChecked(aff.course.id,$event,i)">
+                    <ion-accordion value="first">
+                      <ion-item slot="header" color="light">
+                        <ion-label *ngIf="aff?.status1==='0'" style=" color:#ff9800 ;">En attente</ion-label>
+                        <ion-label *ngIf="aff?.status1==='1'" style=" color:#0AAF20 ;">Acceptée</ion-label>
+                        
+                      </ion-item>
+                      <div slot="content">
+                        <ion-item id="item3" lines="none">
+                            <ion-label class="ref-label" slot="start">Tarif</ion-label>
+                            <ion-icon class="ref-time" name="logo-euro"></ion-icon>
+                            <ion-label class="ref-label2">{{aff.course.tarif}}</ion-label>
+                        </ion-item>
+                        <!--Commentaire-->
+                        <ion-note style="margin-left: 16px;"><strong> Commentaire : </strong>{{aff.course?.commentaire}}</ion-note>
+                      </div>
+                    </ion-accordion>
+                  </ion-accordion-group>
+              
+                <ion-card-content>
+                    <ion-row style="margin-top: -80px;" class="ion-text-center">
+                        <ion-col class="ion-align-self-center">
+    
+                        </ion-col>
+                        <ion-col class="ion-align-self-center">
+                            
+                            <!--En attente-->
+                            <ion-fab [ngStyle]="{ 'display': aff.course.checked == true?'none':'' }" vertical="bottom" horizontal="center" edge *ngIf="aff?.status1==='0'&&aff.course.start.split('T')[1] !== '00:00:00+00:00'">
+                                <ion-fab-button size="small" [color]="getColorStatus1(aff?.status2)">
+                                    <ion-icon name="hand"></ion-icon>                              
+                                </ion-fab-button>
+                                <ion-fab-list side="start" (click)="confirmRefusCourse(aff.id,aff.course.id,aff.course.affecta)">
+                                  <ion-fab-button size="small" color="primary"><ion-icon name="eye-off"></ion-icon></ion-fab-button>
+                                </ion-fab-list>
+                                <ion-fab-list side="end" (click)="confirmAcceptCourse(aff.id,'1',aff.course.id)">
+                                  <ion-fab-button size="small" color="primary"><ion-icon name="checkmark"></ion-icon></ion-fab-button>
+                                </ion-fab-list>
+                              </ion-fab>
+    
+                            <!--Aujourdhui-->
+                            <div *ngIf="segmenValue==='Aujourdhui'">
+                                <div *ngIf="aff.status2!='6'&& aff?.status1==='1'">
+                                    <!--Status2 => En attente-->
+                                    <ion-fab [ngStyle]="{ 'display': aff.course.checked == true?'none':'' }" vertical="bottom" horizontal="center" edge  *ngIf="aff.status2==='0'&&aff.course.start.split('T')[1] !== '00:00:00+00:00'">
+                                        <ion-fab-button size="small" [color]="getColorStatus2(aff?.status2)">
+                                            <ion-icon name="hand"></ion-icon>
+                                        </ion-fab-button>
+                                        <ion-fab-list side="top" (click)="confirmChangementCourse(aff.id,'8',aff.course,8,'#fd6c9e')">
+                                            <ion-button size="small" style="position: absolute;top: 40px;" color="absentdep" shape="round">Absent + Déplacement</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="start" (click)="confirmChangementCourse(aff.id,'5',aff.course,5,'#0F056B')">
+                                            <ion-button size="small" style="position: absolute;" color="abord" shape="round">À bord</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="end" (click)="confirmChangementCourse(aff.id,'1',aff.course,3,'#bbacac')">
+                                            <ion-button size="small" style="position: absolute;" color="enroute" shape="round">En route</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="bottom" (click)="confirmChangementCourse(aff.id,'2',aff.course,4,'#eea303')">
+                                            <ion-button size="small" style="position: absolute;top: -14px;left: -133px;" color="surplace" shape="round">Surplace</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="bottom" (click)="confirmChangementCourse(aff.id,'4',aff.course,7,'#811453')">
+                                            <ion-button size="small" style="position: absolute;top: -14px;right: -130px;" color="terminer" shape="round">Terminer</ion-button>
+                                        </ion-fab-list>
+                                      </ion-fab>
+                                    <!--Status2 => En route-->
+                                    <ion-fab [ngStyle]="{ 'display': aff.course.checked == true?'none':'' }" vertical="bottom" horizontal="center" edge  *ngIf="aff.status2==='1'">
+                                        <ion-fab-button size="small" [color]="getColorStatus2(aff?.status2)">
+                                            <ion-icon name="hand"></ion-icon>
+                                        </ion-fab-button>
+                                        <ion-fab-list side="top" (click)="confirmChangementCourse(aff.id,'8',aff.course,8,'#fd6c9e')">
+                                            <ion-button size="small" style="position: absolute;top: 40px;" color="absentdep" shape="round">Absent + Déplacement</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="start" (click)="confirmChangementCourse(aff.id,'5',aff.course,5,'#0F056B')">
+                                            <ion-button size="small" style="position: absolute;" color="abord" shape="round">À bord</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="end" (click)="confirmChangementCourse(aff.id,'1',aff.course,3,'#bbacac')">
+                                            <ion-button size="small" style="position: absolute;" color="enroute" shape="round">En route</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="bottom" (click)="confirmChangementCourse(aff.id,'2',aff.course,4,'#eea303')">
+                                            <ion-button size="small" style="position: absolute;top: -14px;left: -133px;" color="surplace" shape="round">Surplace</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="bottom" (click)="confirmChangementCourse(aff.id,'4',aff.course,7,'#811453')">
+                                            <ion-button size="small" style="position: absolute;top: -14px;right: -130px;" color="terminer" shape="round">Terminer</ion-button>
+                                        </ion-fab-list>
+                                      </ion-fab>
+                                    <!--Status2 => Surplace-->
+                                    <ion-fab [ngStyle]="{ 'display': aff.course.checked == true?'none':'' }" vertical="bottom" horizontal="center" edge  *ngIf="aff.status2==='2'&&aff.course.start.split('T')[1] !== '00:00:00+00:00'">
+                                        <ion-fab-button size="small" [color]="getColorStatus2(aff?.status2)">
+                                            <ion-icon name="hand"></ion-icon>
+                                        </ion-fab-button>
+                                        <ion-fab-list side="top" (click)="confirmChangementCourse(aff.id,'8',aff.course,8,'#fd6c9e')">
+                                            <ion-button size="small" style="position: absolute;top: 40px;" color="absentdep" shape="round">Absent + Déplacement</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="start" (click)="confirmChangementCourse(aff.id,'5',aff.course,5,'#0F056B')">
+                                            <ion-button size="small" style="position: absolute;" color="abord" shape="round">À bord</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="end" (click)="confirmChangementCourse(aff.id,'1',aff.course,3,'#bbacac')">
+                                            <ion-button size="small" style="position: absolute;" color="enroute" shape="round">En route</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="bottom" (click)="confirmChangementCourse(aff.id,'2',aff.course,4,'#eea303')">
+                                            <ion-button size="small" style="position: absolute;top: -14px;left: -133px;" color="surplace" shape="round">Surplace</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="bottom" (click)="confirmChangementCourse(aff.id,'4',aff.course,7,'#811453')">
+                                            <ion-button size="small" style="position: absolute;top: -14px;right: -130px;" color="terminer" shape="round">Terminer</ion-button>
+                                        </ion-fab-list>
+                                    </ion-fab>
+                                    <!--Status2 => Abord-->
+                                    <ion-fab [ngStyle]="{ 'display': aff.course.checked == true?'none':'' }" vertical="bottom" horizontal="center" edge  *ngIf="aff.status2==='5'&&aff.course.start.split('T')[1] !== '00:00:00+00:00'">
+                                        <ion-fab-button size="small" [color]="getColorStatus2(aff?.status2)">
+                                            <ion-icon name="hand"></ion-icon>
+                                        </ion-fab-button>
+                                        <ion-fab-list side="top" (click)="confirmChangementCourse(aff.id,'8',aff.course,8,'#fd6c9e')">
+                                            <ion-button size="small" style="position: absolute;top: 40px;" color="absentdep" shape="round">Absent + Déplacement</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="start" (click)="confirmChangementCourse(aff.id,'5',aff.course,5,'#0F056B')">
+                                            <ion-button size="small" style="position: absolute;" color="abord" shape="round">À bord</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="end" (click)="confirmChangementCourse(aff.id,'1',aff.course,3,'#bbacac')">
+                                            <ion-button size="small" style="position: absolute;" color="enroute" shape="round">En route</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="bottom" (click)="confirmChangementCourse(aff.id,'2',aff.course,4,'#eea303')">
+                                            <ion-button size="small" style="position: absolute;top: -14px;left: -133px;" color="surplace" shape="round">Surplace</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="bottom" (click)="confirmChangementCourse(aff.id,'4',aff.course,7,'#811453')">
+                                            <ion-button size="small" style="position: absolute;top: -14px;right: -130px;" color="terminer" shape="round">Terminer</ion-button>
+                                        </ion-fab-list>
+                                      </ion-fab>
+                                    <!--Status2 => Absent + Déplacement-->
+                                    <ion-fab [ngStyle]="{ 'display': aff.course.checked == true?'none':'' }" vertical="bottom" horizontal="center" edge  *ngIf="aff.status2==='3'&&aff.course.start.split('T')[1] !== '00:00:00+00:00'">
+                                        <ion-fab-button size="small" [color]="getColorStatus2(aff?.status2)">
+                                            <ion-icon name="hand"></ion-icon>
+                                        </ion-fab-button>
+                                        <ion-fab-list side="top" (click)="confirmChangementCourse(aff.id,'8',aff.course,8,'#fd6c9e')">
+                                            <ion-button size="small" style="position: absolute;top: 40px;" color="absentdep" shape="round">Absent + Déplacement</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="start" (click)="confirmChangementCourse(aff.id,'5',aff.course,5,'#0F056B')">
+                                            <ion-button size="small" style="position: absolute;" color="abord" shape="round">À bord</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="end" (click)="confirmChangementCourse(aff.id,'1',aff.course,3,'#bbacac')">
+                                            <ion-button size="small" style="position: absolute;" color="enroute" shape="round">En route</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="bottom" (click)="confirmChangementCourse(aff.id,'2',aff.course,4,'#eea303')">
+                                            <ion-button size="small" style="position: absolute;top: -14px;left: -133px;" color="surplace" shape="round">Surplace</ion-button>
+                                        </ion-fab-list>
+                                        <ion-fab-list side="bottom" (click)="confirmChangementCourse(aff.id,'4',aff.course,7,'#811453')">
+                                            <ion-button size="small" style="position: absolute;top: -14px;right: -130px;" color="terminer" shape="round">Terminer</ion-button>
+                                        </ion-fab-list>
+                                      </ion-fab>
+                                </div>
+                            </div>
+    
+                            <p  class="labelStatus2" [ngStyle]="{ 'display': aff.course.checked == true?'none':'' }">{{getLabelStatus2(aff.status2)}}</p>
+                        </ion-col>
+    
+                        <ion-col class="ion-align-self-center">
+    
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+              </ion-card>
+        </div>
+
+                <!-- liste course Passé-->
+                <div *ngIf="segmenValue == 'passé'&&isLoaded">
+                    <ion-card *ngFor="let aff of data;let i = index">
+                        <ion-item id="item1" lines="none">
+                            <a  slot="start" href="tel:{{aff?.course?.courseClients[0]?.tel}}">
+                                <ion-icon class="ref-icon" name="call" slot="start"></ion-icon>
+                            </a>
+                          <ion-label class="ref-label ion-text-wrap">
+                            {{aff?.course?.courseClients[0]?.client.nom}}&nbsp;{{aff?.course?.courseClients[0]?.client.prenom}}
+                          </ion-label>
+                          <ion-label class="ref-time" slot="start">{{formatTimeDateZone(aff?.course.start) +' à '+ formatTimeZone(aff?.course.start)}}</ion-label>
+                          <!--<ion-button fill="outline" slot="end">View</ion-button>-->
+                        </ion-item>
+                        <ion-grid id="addr" style="padding-top: 0;padding-bottom: 0" (click)="goToChat(aff?.course?.id)">
+                            <ion-row>
+                              <ion-col size="5" style="text-align: left" class="ion-align-self-start">
+                                <p>
+                                    <span style="font-weight: bold!important;">                            
+                                        {{aff.course.courseClients[0].depart?aff.course.courseClients[0].depart.split(':')[0]+' : ':''}}
+                                    </span>
+                                    <span>
+                                        {{aff.course.courseClients[0].depart?aff.course.courseClients[0].depart.split(':')[1]:''}}<br>
+                                    </span>
+                                </p>
+                              </ion-col>
+                              <ion-col size="2" style="text-align: center" class="ion-align-self-start">
+                                <ion-icon name="arrow-round-forward"></ion-icon>
+                              </ion-col>
+                              <ion-col size="5" style="text-align: left" class="ion-align-self-start">
+                                <p>
+                                    <span style="font-weight: bold!important;">                            
+                                        {{aff.course.courseClients[0].destination?aff.course.courseClients[0].destination.split(':')[0]+' : ':''}}
+                                    </span>
+                                    <span>
+                                        {{aff.course.courseClients[0].destination?aff.course.courseClients[0].destination.split(':')[1]:''}}<br>
+                                    </span>
+                                </p>
+                              </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                        <ion-item id="item2" lines="full">
+                            <!--<ion-icon class="ref-icon" name="logo-model-s" slot="start"></ion-icon>-->
+                            <ion-img *ngIf="aff?.course.medical==='2'" slot="start"
+                            style="width:30px!important;"
+                            src="../../assets/image/ambulance.jpg"></ion-img>
+                   <ion-img *ngIf="aff?.course.medical==='1'" slot="start"
+                            style="width:30px!important;"
+                            src="../../assets/image/taxi.jpg"></ion-img>
+        
+                   <ion-img *ngIf="aff?.course.medical==='4'" slot="start"
+                            style="width:30px!important;"
+                            src="../../assets/image/school.png"></ion-img>
+                            <!--<ion-label *ngIf="aff?.course.medical==='2'" class="ref-label" slot="start">Medical</ion-label>
+                            <ion-label *ngIf="aff?.course.medical==='1'" class="ref-label" slot="start">Taxi</ion-label>
+                            <ion-label *ngIf="aff?.course.medical==='4'" class="ref-label" slot="start">Eleve</ion-label>-->
+        
+                            <ion-icon class="ref-time" name="contact"></ion-icon>
+                            <ion-label class="ref-label2">{{aff?.course?.courseClients?aff?.course?.courseClients.length:''}}</ion-label>
+                        </ion-item>
+            
+                        <ion-accordion-group (click)="SwipeChecked(aff.course.id,$event,i)">
+                            <ion-accordion value="first">
+                              <ion-item slot="header" color="light">
+                                <ion-label *ngIf="aff?.status1==='0'" style=" color:#ff9800 ;">En attente</ion-label>
+                                <ion-label *ngIf="aff?.status1==='1'" style=" color:#0AAF20 ;">Acceptée</ion-label>
+                              </ion-item>
+                              <div slot="content">
+                                <ion-item id="item3" lines="none">
+                                    <ion-label class="ref-label" slot="start">Tarif</ion-label>
+                                    <ion-icon class="ref-time" name="logo-euro"></ion-icon>
+                                    <ion-label class="ref-label2">{{aff.course.tarif}}</ion-label>
+                                </ion-item>
+                                <!--Commentaire-->
+                                <ion-note style="margin-left: 16px;"><strong> Commentaire : </strong>{{aff.course?.commentaire}}</ion-note>
+                              </div>
+                            </ion-accordion>
+                          </ion-accordion-group>
+                      
+                        <ion-card-content>
+                            <ion-row style="margin-top: -80px;" class="ion-text-center">
+                                <ion-col class="ion-align-self-center">
+            
+                                </ion-col>
+                                <ion-col class="ion-align-self-center">
+                                    <ion-badge class="labelStatus2Passe" [ngStyle]="{ 'display': aff.course.checked == true?'none':''}" 
+                                    [color]="getColorStatus2(aff?.status2)" mode="ios">{{getLabelStatus2(aff.status2)}}
+                         </ion-badge>
+                                </ion-col>
+                                <ion-col class="ion-align-self-center">
+                                </ion-col>
+                            </ion-row>
+                        </ion-card-content>
+                      </ion-card>
+                </div>
+                <div class="mt-5 d-flex justify-content-center" *ngIf="isLoaded&&data.length>0&&paginationViewer">
+                    <ngb-pagination class="d-flex justify-content-center" [collectionSize]="data?.length" #numPages
+                                    [maxSize]="3"
+                                    [pageSize]="itemsPerPage"
+                                    [(page)]="currentPage"
+                                    
+                                    (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                </div>
+    
+    </div>
+    <div class="spin" *ngIf="isLoaded && !data.length">
+        <p>Pas de course</p>
+    </div>
+ 
+</ion-content>
+
+

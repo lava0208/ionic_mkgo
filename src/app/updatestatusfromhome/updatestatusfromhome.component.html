@@ -1,0 +1,139 @@
+<ion-content>
+
+    <ion-list style="margin:4%">
+
+        <form [formGroup]="formtermincourse" style="box-sizing: content-box">
+
+            <ion-label><span><b>Changment Status Course </b></span></ion-label>
+            <ion-radio-group formControlName="status2">
+                <ion-item *ngIf="formtermincourse.get('status2').value!='4,#811453,7'">
+                    <ion-label>En route</ion-label>
+                    <ion-radio slot="start" value="1,#BBACAC,3"></ion-radio>
+                </ion-item>
+                <ion-item *ngIf="formtermincourse.get('status2').value!='4,#811453,7'">
+                    <ion-label>Sur Place</ion-label>
+                    <ion-radio slot="start" value="2,#eea303,4"></ion-radio>
+                </ion-item>
+                <!--        <ion-item *ngIf="formtermincourse.get('status2').value!='4,#811453,7'">-->
+                <!--          <ion-label> Absent</ion-label>-->
+                <!--          <ion-radio slot="start" value="3,#E21313,6"></ion-radio>-->
+                <!--        </ion-item>-->
+                <ion-item *ngIf="formtermincourse.get('status2').value!='4,#811453,7'">
+                    <ion-label> Absent + Déplacement</ion-label>
+                    <ion-radio slot="start" value="8,#fd6c9e,8"></ion-radio>
+                </ion-item>
+                <ion-item *ngIf="formtermincourse.get('status2').value!='4,#811453,7'">
+                    <ion-label> Abord</ion-label>
+                    <ion-radio slot="start" value="5,#0F056B,5"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label> Terminée</ion-label>
+                    <ion-radio slot="start" value="4,#811453,7"></ion-radio>
+                </ion-item>
+            </ion-radio-group>
+
+            <div *ngIf="formtermincourse.get('status2').value==='4,#811453,7'">
+                <ion-item class="background" *ngIf="coursebyaffect?.medical!='4'"
+                          style="--padding-start: 5% !important;--color: #fca162!important;">
+                    <ion-label><b>Prevoir Retour</b></ion-label>
+                    <ion-checkbox (ionChange)="addValue($event)" color="success" slot="start"
+                                  checked="{{prevoirretour}}"
+                                  [(ngModel)]="prevoirretour"
+                                  [ngModelOptions]="{standalone: true}" class="checkbox-square"></ion-checkbox>
+
+                </ion-item>
+
+                <ion-item *ngIf="coursebyaffect?.medical!=='1'">
+                    <ion-label position="floating">kilometrage</ion-label>
+
+                    <ion-input type="text" inputmode="numeric"
+                               formControlName="kilometrage" required="required"></ion-input>
+
+                </ion-item>
+
+                <ion-item *ngIf="coursebyaffect?.medical==='1'">
+                    <ion-label position="floating">Tarif</ion-label>
+
+                    <ion-input type="text" inputmode="numeric"
+                               formControlName="tarif"></ion-input>
+
+                </ion-item>
+
+                <ion-item>
+
+                    <ion-label (click)="selectImage1()">
+                        <ion-icon color="primary" name="document" mode="ios"></ion-icon>&nbsp;<span
+                            *ngIf="imageFileName1===''">Fichier 1:</span>{{imageFileName1}}
+                    </ion-label>
+                    <input hidden class="ion-hide" type="file" (change)="onFileChange1($event)"
+                           id="file-input1"
+                    >
+
+                    <div class="validation-errors">
+                        <ng-container *ngFor="let validation of validation_messages.filename1">
+                            <div class="error-message"
+                                 *ngIf="submit&&formtermincourse.get('filename1').hasError(validation.type)">
+                                {{ validation.message }}
+                            </div>
+                        </ng-container>
+                    </div>
+                </ion-item>
+                <ion-item>
+
+                    <ion-label (click)="selectImage2()">
+                        <ion-icon color="primary" name="document"></ion-icon>&nbsp;<span
+                            *ngIf="imageFileName2===''"> Fichier 1:</span>{{imageFileName2}}
+                    </ion-label>
+                    <input hidden class="ion-hide" type="file" (change)="onFileChange2($event)"
+                           id="file-input2"
+                    >
+
+                    <div class="validation-errors">
+                        <ng-container *ngFor="let validation of validation_messages.filename2">
+                            <div class="error-message"
+                                 *ngIf="submit&&formtermincourse.get('filename2').hasError(validation.type)">
+                                {{ validation.message }}
+                            </div>
+                        </ng-container>
+                    </div>
+
+                </ion-item>
+
+            </div>
+
+
+            <ion-toolbar>
+                <ion-button style="--border-radius: 50rem;--background: #949bb7 ;float: right" type="submit"
+                            text-capitalize
+                            (click)="closePopover()">
+                    Fermer
+                </ion-button>
+                <ion-button style="--border-radius: 50rem ;float: right"
+                            *ngIf="formtermincourse.get('status2').value==='4,#811453,7'&& coursebyaffect?.paiement !=='En compte'"
+                            color="secondary" type="submit"
+                            text-capitalize
+                            (click)="termineraffectation()">
+                    Enregistrer
+                </ion-button>
+                <ion-button style="--border-radius: 50rem ;float: right"
+                            *ngIf="formtermincourse.get('status2').value==='4,#811453,7' && coursebyaffect?.paiement==='En compte'"
+                            color="secondary" type="submit"
+                            text-capitalize
+                            (click)="termineraffectationencompt()">
+                    Enregistrer
+                </ion-button>
+                <ion-button style="--border-radius: 50rem ;float: right"
+                            *ngIf="formtermincourse.get('status2').value!='4,#811453,7'" color="secondary"
+                            type="submit"
+                            text-capitalize
+                            (click)="updatestatus2affectation()">
+                    Enregistrer
+                </ion-button>
+
+            </ion-toolbar>
+
+        </form>
+
+
+    </ion-list>
+</ion-content>

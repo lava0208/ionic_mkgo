@@ -1,0 +1,299 @@
+<ion-header>
+    <ion-toolbar style=" --background: linear-gradient(37deg, #fca162b8 2%, #3c54a3c2 70%)!important;">
+        <ion-title style="color: white">
+            Nouveau Client
+        </ion-title>
+        <ion-button (click)="closePopover()" fill="clear" slot="end" style="color: white">
+            <ion-icon name="close" slot="end"></ion-icon>
+        </ion-button>
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+
+    <form [formGroup]="clientform">
+        <ion-item [hidden]="typeclient!==1" style="    font-size: 13px;">
+            <ion-label position="floating" style="font-family: monospace"> Nom :</ion-label>
+
+            <ion-input formControlName="nom" (click)="focusInput($event)"
+                       text-capitalize>
+
+            </ion-input>
+
+
+        </ion-item>
+        <ion-item [hidden]="typeclient!==1" style="    font-size: 13px;">
+            <ion-label position="floating" style="font-family: monospace"> Prenom :</ion-label>
+
+            <ion-input formControlName="prenom" (click)="focusInput($event)"
+                       text-capitalize>
+
+            </ion-input>
+
+
+        </ion-item>
+        <ion-row [hidden]="typeclient===1">
+            <ion-col>
+                <ion-item style="    font-size: 13px;">
+                    <ion-label position="floating" style="font-family: monospace"> Nom :</ion-label>
+
+                    <ion-input formControlName="nom" (click)="focusInput($event)"
+                               text-capitalize>
+
+                    </ion-input>
+
+
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item style="    font-size: 13px;">
+                    <ion-label position="floating" style="font-family: monospace"> Prenom :</ion-label>
+
+                    <ion-input formControlName="prenom" (click)="focusInput($event)"
+                               text-capitalize>
+
+                    </ion-input>
+
+
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <!-- City Name Field. -->
+        <ion-row >
+            <ion-col size="4">
+                <ion-item style="    font-size: 13px;">
+
+                    <ion-label position="floating" style="font-family: monospace">Titre 1 :</ion-label>
+
+
+                    <ion-input class="background-transparent" formControlName="titre1" (click)="focusInput($event)">
+                    </ion-input>
+
+
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item style="    font-size: 13px;">
+                    <ion-label position="floating" style="font-family: monospace">Adresse 1 :</ion-label>
+
+
+                    <ion-input class="background-transparent" formControlName="adresse" (click)="focusInput($event)"
+                               id="depa1"
+                               (ionInput)="searcOnChnage()">
+                    </ion-input>
+                    <div *ngIf="submited && f.adresse.errors" class="invalid-feedback"
+                         style="font-size: 14px!important;color: #f04141">
+                        <div *ngIf="f.adresse.errors.required">Adresse Obligatoire</div>
+                    </div>
+
+                </ion-item>
+
+            </ion-col>
+            <ion-card id="carddestination" *ngIf="closecard ==='depa1'">
+                <ion-list style="box-shadow: 0 0px 6px #bdbdbd!important;">
+                    <ion-item *ngFor="let item of autocompleteItems" class="item-requset-ride" tappable
+                              (click)="chooseItem(item)" style="--padding-inline-start: 0px !important;
+    --padding-inline-end: 0px !important;">
+                        <ion-icon style="    margin-right: 2%;" name="pin" md="md-pin" slot="start"
+                                  color="danger"></ion-icon>
+                        <ion-label>
+                            <h5>{{item}}</h5>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card>
+
+        </ion-row>
+
+        <ion-row>
+            <ion-col size="4">
+                <ion-item style="    font-size: 13px;">
+                    <ion-label position="floating" style="font-family: monospace">Titre 2 :</ion-label>
+                    <ion-input class="background-transparent" formControlName="titre2" (click)="focusInput($event)">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item style="    font-size: 13px;">
+                    <ion-label position="floating" style="font-family: monospace">Adresse 2 :</ion-label>
+
+
+                    <ion-input class="background-transparent" formControlName="adresse2" (click)="focusInput($event)"
+                               id="depart2"
+                               (ionInput)="searcOnChnage2()">
+                    </ion-input>
+
+
+                </ion-item>
+            </ion-col>
+
+            <ion-card id="carddestination2" *ngIf="closecard2 ==='depart2'">
+                <ion-list style="box-shadow: 0 0px 6px #bdbdbd!important;">
+                    <ion-item *ngFor="let item2 of autocompleteItems2" class="item-requset-ride" tappable
+                              (click)="chooseItem2(item2)">
+                        <ion-icon style="    margin-right: 2%;" name="pin" md="md-pin" slot="start"
+                                  color="danger"></ion-icon>
+                        <ion-label>
+                            <h5>{{item2}}</h5>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card>
+        </ion-row>
+        <ion-row>
+            <ion-col size="4">
+                <ion-item style="    font-size: 13px;">
+                    <ion-label position="floating" style="font-family: monospace">Titre 3 :</ion-label>
+
+
+                    <ion-input class="background-transparent" formControlName="titre3" (click)="focusInput($event)">
+                    </ion-input>
+
+
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item style="    font-size: 13px;">
+                    <ion-label position="floating" style="font-family: monospace">Adresse 3 :</ion-label>
+
+
+                    <ion-input class="background-transparent" formControlName="adresse3" (click)="focusInput($event)"
+                               id="depart3"
+                               (ionInput)="searcOnChnage3()">
+                    </ion-input>
+
+
+                </ion-item>
+            </ion-col>
+            <ion-card id="carddestination3" *ngIf="closecard3 ==='depart3'">
+                <ion-list style="box-shadow: 0 0px 6px #bdbdbd!important;">
+                    <ion-item *ngFor="let item3 of autocompleteItems3" class="item-requset-ride" tappable
+                              (click)="chooseItem3(item3)">
+                        <ion-icon style="    margin-right: 2%;" name="pin" md="md-pin" slot="start"
+                                  color="danger"></ion-icon>
+                        <ion-label>
+                            <h5>{{item3}}</h5>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card>
+        </ion-row>
+        <ion-row>
+            <ion-col size="4">
+                <ion-item style="    font-size: 13px;">
+                    <ion-label position="floating" style="font-family: monospace">Titre 4 :</ion-label>
+
+
+                    <ion-input class="background-transparent" formControlName="titre4" (click)="focusInput($event)">
+                    </ion-input>
+
+
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item style="    font-size: 13px;">
+                    <ion-label position="floating" style="font-family: monospace">Adresse 4 :</ion-label>
+
+
+                    <ion-input class="background-transparent" formControlName="adresse4" (click)="focusInput($event)"
+                               id="depart4"
+                               (ionInput)="searcOnChnage4()">
+                    </ion-input>
+
+
+                </ion-item>
+            </ion-col>
+            <ion-card id="carddestination4" *ngIf="closecard4 ==='depart4'">
+                <ion-list style="box-shadow: 0 0px 6px #bdbdbd!important;">
+                    <ion-item *ngFor="let item4 of autocompleteItems4" class="item-requset-ride" tappable
+                              (click)="chooseItem4(item4)">
+                        <ion-icon style="    margin-right: 2%;" name="pin" md="md-pin" slot="start"
+                                  color="danger"></ion-icon>
+                        <ion-label>
+                            <h5>{{item4}}</h5>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card>
+        </ion-row>
+        <ion-row>
+            <ion-col size="4">
+                <ion-item style="    font-size: 13px;">
+                    <ion-label position="floating" style="font-family: monospace">Titre 5 :</ion-label>
+
+
+                    <ion-input class="background-transparent" formControlName="titre5" (click)="focusInput($event)">
+                    </ion-input>
+
+
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item style="    font-size: 13px;">
+                    <ion-label position="floating" style="font-family: monospace">Adresse 5 :</ion-label>
+
+
+                    <ion-input class="background-transparent" formControlName="adresse5" (click)="focusInput($event)"
+                               id="depart5"
+                               (ionInput)="searcOnChnage5()">
+                    </ion-input>
+
+
+                </ion-item>
+            </ion-col>
+            <ion-card id="carddestination5" *ngIf="closecard5 ==='depart5'">
+                <ion-list style="box-shadow: 0 0px 6px #bdbdbd!important;">
+                    <ion-item *ngFor="let item5 of autocompleteItems5" class="item-requset-ride" tappable
+                              (click)="chooseItem5(item5)">
+                        <ion-icon style="    margin-right: 2%;" name="pin" md="md-pin" slot="start"
+                                  color="danger"></ion-icon>
+                        <ion-label>
+                            <h5>{{item5}}</h5>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card>
+        </ion-row>
+
+        <ion-row *ngIf="typeclient===2">
+            <ion-col>
+                <ion-item style="    font-size: 13px;">
+                    <ion-label position="floating" style="font-family: monospace">N° Sécurité sociale * :</ion-label>
+                    <ion-input type="number" formControlName="numSecusocial" (click)="focusInput($event)"
+
+                    ></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item style="    font-size: 13px;">
+                    <ion-label position="floating" style="font-family: monospace">Type mutuelle * :</ion-label>
+                    <ion-input type="text" formControlName="mutuelle" (click)="focusInput($event)"
+
+                    ></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-item style="    font-size: 13px;">
+            <ion-label position="floating" style="font-family: monospace">Téléphone * :</ion-label>
+            <ion-input type="text" inputmode="numeric" formControlName="tel" (click)="focusInput($event)"
+            ></ion-input>
+        </ion-item>
+
+
+        <br>
+
+        <ion-toolbar>
+
+            <ion-row>
+                <ion-col>
+                    <ion-button type="submit" color="success" expand="block" (click)="add()"> Ajouter</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-toolbar>
+    </form>
+
+
+</ion-content>

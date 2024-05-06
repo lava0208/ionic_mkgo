@@ -1,0 +1,83 @@
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+.or_with_Line {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  hr {
+    height: 1px;
+    border-width: 0;
+    box-sizing: content-box;
+    background: var(--ion-color-light-shade);
+    width: 150px;
+  }
+}
+ion-text {
+  font-size: 12px;
+  padding-top: 10px;
+  .secondary {
+    color: #00bcd4;
+  }
+}
+.Input_Fields {
+  width: 100%;
+}
+p {
+  font-weight: bold;
+  min-height: 32px;
+}
+ion-button {
+
+  height: 48px;
+}
+ion-footer {
+  ion-button {
+    width: 100%;
+  }
+}
+.inputField {
+  border: 1px solid #eaeaee;
+   font-size: 14px;
+  margin-bottom: 15px;
+}
+.sc-ion-input-md-h{
+  --padding-start: 16px !important;
+}
+ion-item{
+  --border-width: 0 0 0px 0 !important;
+}
+ion-input {
+  border: 5px !important;
+}
+
+.text-input-ios, .text-input-md {
+  border-radius: 5px;
+  border: 1px solid #efefef;
+}
+
+.text-input {
+  margin: 0;
+  width: calc(100% - 8px);
+  padding: 13px 8px;
+}
+.error {
+  color: rgb(223, 62, 62);
+  font-size: 11px;
+}
+
+.error_message{
+  font-size: 6px;
+  color: red;
+  text-align: center;
+}
+
+.spin{
+  text-align: center;
+}

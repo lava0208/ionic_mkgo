@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar
+          style="  --background: linear-gradient(37deg, #fca162b8 2%, #3c54a3c2 70%)!important;">
+
+
+    <ion-title style="font-size: 17px!important;color: white">Nouvelle affectations
+    </ion-title>
+    <ion-button (click)="closePopover()" fill="clear" slot="end" style="color: white">
+      <ion-icon name="close" slot="end"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form>
+    <ion-row>
+      <ion-col>
+        <ion-text><span class="label">Course <span style="color: #f04141">*</span></span></ion-text>
+
+
+        <select padding-horizontal
+                style="     height: auto;
+    display: block!important;
+    width: 91%;
+    pointer-events: none;"
+                class="form-control input course">
+          <option value="{{course?.id}}"
+          >({{course?.ref}} )&nbsp;{{course?.start|date}}
+            à {{course?.start| date:"HH:mm":'UTC+0'}}
+          </option>
+        </select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-text><span class="label">Motif d'annulation: </span>
+        </ion-text>
+
+        <ion-input [(ngModel)]="motifannulation" [ngModelOptions]="{standalone: true}"
+
+                   class="form-control" type="text" required style="
+    height: 57%;
+    border: 1px solid rgba(0 0 0 0.33);
+"></ion-input>
+        <!--                <span class="text-danger" style="font-size: 14px!important;"-->
+        <!--                      *ngIf="(motifannulation1.touched || submitted) && motifannulation1.errors?.required">-->
+        <!--                       Motif d'annulation Obligatoire-->
+        <!--                            </span>-->
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-text><span class="label">Chauffeur<span style="color: #f04141">*</span></span></ion-text>
+
+        <select padding-horizontal style=" width: 100%!important;"
+                class="input clientselect" id="clientselect"
+                multiple=multiple>
+
+          <option value="">Choisir chauffeur</option>
+          <option *ngFor="let c of listchauffeurtaxi" value="{{c.id}}">{{c.nom}}&nbsp;{{c.prenom}}</option>
+        </select>
+      </ion-col>
+    </ion-row>
+  </form>
+
+
+</ion-content>
+<ion-row>
+  <ion-col>
+    <ion-button color="secondary" (click)="closePopover()" class="bottom"><span><strong>Fermer</strong></span>
+    </ion-button>
+  </ion-col>
+  <ion-col>
+    <ion-button color="success" (click)="affect()" class="bottom"><span><strong>Enregistrer</strong></span>
+    </ion-button>
+  </ion-col>
+
+</ion-row>
+<script>
+  $('.course').attr("style", "pointer-events: none;");
+</script>

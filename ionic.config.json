@@ -1,0 +1,12 @@
+{
+  "name": "MKGO",
+  "integrations": {
+    "cordova": {}
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "type": "angular"
+}

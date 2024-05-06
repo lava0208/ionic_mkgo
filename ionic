@@ -1,0 +1,66 @@
+Checking Java JDK and Android SDK versions
+ANDROID_SDK_ROOT=C:\Users\Poste_3\sdk (recommended setting)
+ANDROID_HOME=undefined (DEPRECATED)
+Using Android SDK: C:\Users\Poste_3\sdk
+Subproject Path: CordovaLib
+Subproject Path: app
+Starting a Gradle Daemon (subsequent builds will be faster)
+
+> Configure project :app
+WARNING: Configuration 'compile' is obsolete and has been replaced with 'implementation' and 'api'.
+It will be removed in version 5.0 of the Android Gradle plugin.
+For more information, see http://d.android.com/r/tools/update-dependency-configurations.html.
+config.xml
+../config.xml
+../../config.xml
+../../../config.xml
+preference = 19
+name = ScrollEnabled
+name = android-minSdkVersion
+name = BackupWebStorage
+name = AutoHideSplashScreen
+name = ShowSplashScreenSpinner
+name = FadeSplashScreen
+name = SplashMaintainAspectRatio
+name = SplashShowOnlyFirstTime
+name = SplashScreenDelay
+name = SplashScreen
+name = orientation
+name = UIWebViewBounce
+name = loadUrlTimeoutValue
+name = DisallowOverscroll
+name = AutoHideSplashScreen
+name = AndroidLaunchMode
+name = GOOGLE_MAPS_ANDROID_API_KEY
+name = GOOGLE_MAPS_IOS_API_KEY
+name = KeyboardResize
+---->PLAY_SERVICES_VERSION = 16.0.0
+---->ANDROID_SUPPORT_V4_VERSION = 27.1.1
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :CordovaLib:preBuild UP-TO-DATE
+> Task :CordovaLib:preDebugBuild UP-TO-DATE
+> Task :CordovaLib:compileDebugAidl NO-SOURCE
+> Task :app:compileDebugAidl NO-SOURCE
+> Task :CordovaLib:packageDebugRenderscript NO-SOURCE
+> Task :app:compileDebugRenderscript NO-SOURCE
+> Task :app:generateDebugBuildConfig UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :CordovaLib:compileDebugRenderscript UP-TO-DATE
+> Task :CordovaLib:generateDebugResValues UP-TO-DATE
+> Task :CordovaLib:generateDebugResources UP-TO-DATE
+> Task :CordovaLib:packageDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :CordovaLib:extractDeepLinksDebug UP-TO-DATE
+> Task :CordovaLib:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :CordovaLib:compileDebugLibraryResources UP-TO-DATE
+> Task :CordovaLib:parseDebugLocalResources UP-TO-DATE
+> Task :CordovaLib:generateDebugRFile UP-TO-DATE
+> Task :app:processDebugResources
+Terminer le programme de commandes (O/N)ÿ? 

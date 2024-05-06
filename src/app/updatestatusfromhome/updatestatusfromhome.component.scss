@@ -1,0 +1,40 @@
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.item {
+  .checkbox {
+    .checkbox-icon {
+      border-radius: 0% !important;
+    }
+  }
+}
+.background {
+  color: hsl(0, 0%, 100%);
+  animation: wheelHueColor 1s infinite;
+  background-color: currentColor;
+  font-weight: 900;
+}
+
+@supports (background-blend-mode: overlay) {
+  .background {
+  }
+}
+
+@keyframes wheelHueColor {
+  from, to {
+    color: hsl(25, 96%, 69%);
+
+  }
+  10% {
+    color: hsl(0, 0%, 0%);
+  }
+  20% {
+    color: hsl(0, 0%, 0%);
+  }
+  30% {
+    color: hsl(25, 96%, 69%);
+  }
+}

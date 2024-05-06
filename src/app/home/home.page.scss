@@ -1,0 +1,214 @@
+#home{
+  ion-header{
+
+  }
+  ion-card{
+
+    ion-col{
+      padding: 0;
+      margin: 0;
+      ion-button{
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    #item1{
+      a{
+        margin-inline-end:0;
+        font-size: 1.8rem;
+        position: absolute;
+        left: 2px;
+        top: 10px;
+        text-decoration: none;
+        outline : none;
+        box-shadow: none !important;
+      }
+      .ref-icon{
+        margin-inline-end:0;
+      }
+      .ref-label{
+        --color:#5b9ce0;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        margin-left: 15px;
+
+      }
+      .ref-time{
+        margin-inline-start:0;
+        margin-inline-end:0;
+        color: #88888a;
+        position: absolute;
+        right: 5px;
+        top: -13px;
+        font-weight: bold;
+      }
+    }
+
+    #addr{
+      ion-col{
+        color:#000000;
+        font-weight: 300;
+        p{
+          text-align: center;
+          padding: 0;
+          margin: 0;
+        }
+      }
+      ion-icon{
+        color:#000000;
+      }
+      ion-note{
+        padding: 0;
+        margin-inline-end:0;
+        font-size: 0.8rem;
+      }
+    }
+
+    #item2{
+      ion-label,ion-icon{
+        padding: 0;
+        margin: 0;
+      }
+      ion-img{
+        margin-inline-end:0;
+
+      }
+      .ref-icon{
+        margin-inline-end:0;
+        color:#000000;
+      }
+      .ref-label{
+        --color: #88888a;
+      }
+      .ref-label2{
+        position: absolute;
+        right: 29px;
+        --color: #88888a;
+      }
+      .ref-time{
+        margin-inline-start:0;
+        margin-inline-end:0;
+        color:#000000;
+        position: absolute;
+        right: 5px;
+      }
+    }
+
+    #item3{   
+      height: 36px; 
+      margin-top: -14px;
+      ion-label,ion-icon{
+        padding: 0;
+        margin: 0;
+      }
+      .ref-icon{
+        margin-inline-end:0;
+        color:#000000;
+      }
+      .ref-label{
+        --color: #88888a;
+      }
+      .ref-label2{
+        position: absolute;
+        right: 29px;
+        --color: #88888a;
+      }
+      .ref-time{
+        margin-inline-start:0;
+        margin-inline-end:0;
+        --color: #88888a;
+        position: absolute;
+        right: 5px;
+        top: 18px;
+        font-size: 1rem;
+      }
+    }
+
+    ion-card-content{
+      padding-bottom: 0;
+     // padding-top: 3px;
+      //margin-bottom: 10px;
+
+      .labelStatus2{
+        position: relative;
+        top: 39px;
+        z-index: 1000000;
+        color: #000000;
+        font-weight: bold;
+        font-size: 0.8rem;
+      }
+
+      .labelStatus2Passe{
+        position: relative;
+        top: 36px;
+        z-index: 1000000;
+        color: #FFFFFF;
+        font-weight: bold;
+        font-size: 0.8rem;
+      }
+    }
+
+    ion-accordion-group{
+      .commentaire{
+        position: absolute;
+        font-size: 0.8rem;
+        top: 31px;
+      }
+    }
+
+  }
+
+
+  //// spin and wifi for all pages
+
+  .spin {
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #wifi {
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  ////////////@at-root
+  ion-card.historyCards {
+    --background: white;
+  
+    ion-item.dafault_item {
+      --inner-border-width: 0 0 0px 0;
+      font-size: 14px;
+      --min-height: 20px !important;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
+  }
+
+
+  ngb-pagination ::ng-deep a {
+    color: black !important;
+  }
+  
+  ngb-pagination ::ng-deep .page-item.active .page-link {
+    border-color: black;
+    background-color: lightgrey;
+  }
+  
+  ngb-pagination ::ng-deep .page-item.active .page-link:focus, .page-link:not(:disabled):not(.disabled):active:focus {
+    box-shadow: 0 0 0 0.1rem dimgrey;
+  }
+  
+  ngb-pagination ::ng-deep .page-link:not(:disabled):not(.disabled):active:focus {
+    box-shadow: 0 0 0 0.1rem dimgrey;
+  }
+
+}

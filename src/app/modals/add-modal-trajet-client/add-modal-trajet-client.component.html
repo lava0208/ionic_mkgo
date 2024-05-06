@@ -1,0 +1,83 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-item class="firstItem" lines="none">
+      <ion-icon slot="end" name="close-circle-outline" (click)="dismiss()"></ion-icon>
+      <ion-label>
+        Ajouter Trajet
+      </ion-label>
+    </ion-item>
+    <div id="addTrajet">
+      <div *ngIf="isLoaded">
+        <form [formGroup]="addGroupForm" (ngSubmit)="submitForm()">
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Nom trajet</ion-label>
+              <ion-input id="ville2input" ngDefaultControl
+              type="text" formControlName="nom">
+               </ion-input>
+            </ion-item>
+            <ion-radio-group (ionFocus)="focusHandler($event,'depart')">
+              <ion-list-header>
+                <ion-label>
+                  Départ *
+                </ion-label>
+              </ion-list-header>
+          
+              <ion-item *ngFor="let a of adresses">
+                <ion-label class="ion-text-wrap">{{a.titre}}: {{a.adresse}}</ion-label>
+                <ion-radio value="{{a.titre}}:{{a.adresse}}"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+            <ion-radio-group (ionFocus)="focusHandler($event,'destination')">
+              <ion-list-header>
+                <ion-label>
+                  Destination *
+                </ion-label>
+              </ion-list-header>
+          
+              <ion-item *ngFor="let a of adresses">
+                <ion-label class="ion-text-wrap">{{a.titre}} : {{a.adresse}}</ion-label>
+                <ion-radio value="{{a.titre}}:{{a.adresse}}"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+            <ion-item>
+              <ion-label position="floating">Kilométrage</ion-label>
+              <ion-input id="ville2input" ngDefaultControl
+              type="text" formControlName="distance">
+               </ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Durée</ion-label>
+              <ion-input id="ville2input" ngDefaultControl
+              type="text" formControlName="dureetext">
+               </ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Tarif </ion-label>
+              <ion-input id="ville2input" ngDefaultControl
+              type="text" formControlName="tarif">
+               </ion-input>
+            </ion-item>
+            <ion-item lines="none" class="footer">
+              <ion-button (click)="dismiss()" type="submit" slot="end">
+                Fermer
+              </ion-button>
+              <ion-button slot="end" [disabled]="submitted || addGroupForm.invalid" type="submit">
+                Ajouter
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </form>
+      </div>   
+    </div>
+  </ion-toolbar>
+ </ion-header>
+ <ion-content>
+  <div class="spin" *ngIf="!isLoaded">
+    <ion-spinner name="circles" color="primary"></ion-spinner>
+  </div>
+ </ion-content>
+  
+  
+ 
+ 

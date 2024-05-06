@@ -1,0 +1,430 @@
+
+ion-header{
+  ion-grid{
+    background-color: #3c54a3;
+    ion-col{
+      text-align: center;
+    }
+    //Item 1
+    #item1{
+      --background: transparent;
+
+      .menu{
+        margin-top: 10px;
+      }
+
+      ion-menu-toggle{
+
+        span{
+          margin-left: 10px;
+
+          color: white;
+          text-transform: capitalize;
+        }
+      }
+
+      /*ion-img{
+        width: 30px
+      }*/
+    }
+  }
+}
+ion-text.date {
+  font-size: 18px;
+  color: #006064;
+  font-weight: bold;
+}
+
+.timeDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+}
+
+ion-col.boderCol {
+  border-right: 1px dashed gray;
+}
+
+ion-label {
+
+
+  ion-text {
+    color: #006064;
+
+
+  }
+}
+ion-col.boderCol {
+  border-right: 1px dashed gray;
+}
+.circle {
+  padding-bottom: 20px;
+}
+.timeDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+}
+
+ion-text.costPrice {
+  font-size: 20px;
+  font-weight: bold;
+  color: #006064;
+}
+
+ion-text.seatsCount {
+  font-size: 13px;
+  color: rgb(158, 158, 158);
+}
+
+
+ion-avatar {
+  width: 40px;
+  height: 40px;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.circle {
+  padding-bottom: 20px;
+}
+
+ion-item {
+  --inner-border-width: 0 0 0px 0;
+}
+
+/**
+  * Car Pool starter (https://store.enappd.com/product/blablacar-cloneionic-4-car-pooling-app-starter)
+ *
+ * Copyright © 2019-present Enappd. All rights reserved.
+ *
+ * This source code is licensed as per the terms found in the
+ * LICENSE.md file in the root directory of this source tree.
+ */
+ion-avatar {
+  width: 60px;
+  height: 60px;
+}
+
+ion-list-header {
+  color: var(--ion-color-medium-tint);
+  font-weight: 500;
+  min-height: 24px;
+}
+
+ion-item {
+  --min-height: 44px;
+}
+
+.toastCss {
+  --background: red !important;
+  --color: white !important;
+}
+
+ion-avatar {
+  width: 60px;
+  height: 60px;
+}
+
+
+
+ion-icon {
+  font-size: 20px; //Preferred size here
+}
+
+ion-card {
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+  border: none;
+}
+
+ion-card.historyCards {
+
+
+  ion-item.dafault_item {
+    --inner-border-width: 0 0 0px 0;
+    font-size: 14px;
+    --min-height: 20px !important;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  ion-item {
+    --inner-border-width: 0 0 0px 0;
+
+  }
+
+  .virtical_dash {
+    height: 20px !important;
+    width: 74%;
+    border-style: dashed;
+    display: flex;
+    border-left: dashed 1px;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    margin-left: 6px;
+  }
+
+  ion-label {
+    margin: 3px 3px 3px 0px !important;
+    color: rgb(0, 96, 100);
+  }
+
+  .icon_drop {
+    font-size: 14px;
+    color: green;
+    margin-inline-end: 13px;
+  }
+
+  .icon_pin {
+    font-size: 14px;
+    color: orange;
+    margin-inline-end: 13px;
+  }
+
+  .car_icon {
+    position: absolute;
+    right: 4%;
+    top: 20%;
+  }
+
+  ion-thumbnail {
+    --size: 40px !important;
+    height: 22px !important;
+    margin: 0px 8px 0px 0 !important;
+  }
+
+  ion-text {
+    font-size: 14px;
+  }
+
+  ion-card {
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+    border: none;
+  }
+}
+
+.horizontal_line {
+  border-bottom: solid 1px #f0f3fc;
+
+  margin-bottom: 0px;
+  margin-top: 5px;
+
+}
+
+.inputcss {
+  display: none;
+}
+
+.test-modal {
+  .modal-wrapper {
+    width: 60px;
+    left: calc(50% - (600px / 2));
+    height: 50px;
+    top: calc(50% - (500px / 2));
+  }
+}
+
+.verticalLine {
+  width: 0.5%;
+  height: 40px;
+  background: rgb(158, 158, 158);;
+  margin-top: 0;
+  position: relative;
+}
+
+.md .alert-input {
+  border-bottom: 2px solid blue;
+  margin-bottom: 3px;
+}
+
+.md .alert-input:focus {
+  border-bottom: 2px solid blue;
+  margin-bottom: 3px;
+}
+
+.ios .alert-input {
+  margin-bottom: 2px;
+}
+
+.validation-errors {
+  padding-top: 5px;
+  text-align: left;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+.header {
+  background-color: transparent;
+  padding-top: 1px;
+}
+.header h2 {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+.space-between {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px 10px 10px;
+}
+
+.followings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+ion-header {
+  ion-toolbar {
+    ion-title {
+      font-size: 1rem;
+
+      ion-icon {
+        margin-bottom: -3px;
+      }
+    }
+  }
+
+  ion-grid {
+    ion-row {
+      .thumbnail {
+        text-align: -webkit-center;
+
+        ion-thumbnail {
+          position: relative;
+          min-width: 4rem;
+          min-height: 4rem;
+          border-radius: 20px;
+          padding: 5px;
+
+          img {
+            border-radius: 20px;
+          }
+        }
+
+        ion-thumbnail::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          padding: 3px;
+          background: linear-gradient(to bottom, #FD771D, #FD771D, #FD771D, #FD771D, #FD771D, #fca162, #FFDC80);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: destination-out;
+          mask-composite: exclude;
+        }
+
+        ion-fab {
+          margin: 0 -10px -14px 10px;
+          width: 20px;
+          height: 20px;
+
+          ion-fab-button {
+            width: 20px;
+            height: 20px;
+            --background: linear-gradient(to bottom, #FD771D, #FD771D, #FD771D, #FD771D, #FD771D, #fca162, #FFDC80);
+          }
+        }
+      }
+
+      ion-col {
+        align-self: inherit;
+
+        ion-label {
+          color: white;
+          font-size: 0.9rem;
+          font-weight: bold;
+
+          .info {
+            font-size: 0.75rem;
+            font-weight: normal;
+          }
+
+          .description {
+            margin: 5px 5px 0 0;
+            font-size: 0.75rem;
+
+            a {
+              text-decoration: none;
+            }
+          }
+        }
+      }
+
+      ion-slides {
+        ion-slide {
+          ion-col {
+            text-align: -webkit-center;
+
+            ion-thumbnail {
+              min-width: 3rem;
+              min-height: 3rem;
+              border-radius: 20px;
+              margin: 0;
+              border: 1px solid var(--ion-color-light);
+
+              ion-icon {
+                transform: translateY(1.6vh);
+                font-size: 1.6rem;
+              }
+
+              img {
+                border-radius: 20px;
+              }
+            }
+
+            p {
+              margin: 0;
+
+              ion-text {
+                font-size: 0.65rem;
+                font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+                font-weight: 300;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+}
+
+
+
+ion-button {
+  height: 67%;
+  --border-radius: 9px;
+}
+
+  //// spin and wifi for all pages
+
+  .spin {
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #wifi {
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

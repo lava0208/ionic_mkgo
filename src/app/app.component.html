@@ -1,0 +1,56 @@
+<style>
+    ion-menu-toggle ion-item {
+        --color: var(--ion-color-medium-tint);
+        --color-selected: var(--ion-color-secondary-tint);
+    }
+</style>
+<ion-app>
+    <ion-menu contentId="main-content" type="overlay">
+        <ion-content fullscreen="true">
+            <ion-list class="ion-text-center main-header" *ngIf="user&&user.nom">
+                <div align="center" class="thumbnail">
+                    <ion-thumbnail (click)="goPage('tabs/home')">
+                        <img src="../../assets/avatar.svg">
+                    </ion-thumbnail>
+                    <!--<ion-thumbnail *ngIf="false">
+                        <img src="http://vps.innoyaservices.fr/images/clients/{{user}}"/>
+                    </ion-thumbnail>-->
+                  <ion-col size="2"><ion-label style="color: white!important;">
+                      {{user.nom}} &nbsp;<br> {{user.prenom}}
+                  </ion-label></ion-col>
+                </div>
+            </ion-list>
+            <div class="content ">
+                <ion-list lines="none" class="transparent">
+                    <ion-menu-toggle *ngFor="let a of tabrouting" class="menu-items"
+                                     [autoHide]="false">
+                        <ion-item *ngIf="!a?.route" color="transparant"
+                                  class="ion-padding-start" [routerLink]="['/tabs/'+a.tab]"
+                                  lines="none" routerDirection="root"
+                                  routerLinkActive="selected"
+                                  detail="false">
+                            <ion-icon name="{{a.iconName}}"   slot="start"
+                                      style="font-size: 25px;color: var(--ion-color-success-tint)"></ion-icon>
+                            <ion-label
+                                    style="color: var(--ion-color-secondary-tint);cursor: pointer">{{a.label}}
+                            </ion-label>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="a?.route"
+                                color="transparant"
+                                class="ion-padding-start"
+                                lines="none"
+                                detail="false"
+                                (click)="showtabLabel(a.tab)">
+                            <ion-icon slot="start" name="{{a.iconName}}"
+                                      style="font-size: 25px;color: var(--ion-color-success-tint)"></ion-icon>
+                            <ion-label
+                                    style="color: var(--ion-color-secondary-tint);cursor: pointer">{{a.label}}</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
+            </div>
+        </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-app>

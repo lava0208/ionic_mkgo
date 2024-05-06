@@ -1,0 +1,307 @@
+<ion-header class="ion-no-border">
+    <ion-grid [ngStyle]="{ 'padding-top': isIos()?'16px':'0px' }">
+        <ion-item id="item1" lines="none">
+            <ion-menu-toggle autoHide="false">
+                <img src="../../assets/image/menu.svg"/>
+            </ion-menu-toggle>
+            <ion-menu-toggle autoHide="false">
+                <span>{{user?.nom}} &nbsp; {{user?.prenom}}</span>
+            </ion-menu-toggle>
+            <ion-button *ngIf="dispatcher"
+            style="width: auto "
+            color="success">
+    <p style="color: white;
+margin-bottom: 4%;margin-top: 4%"
+       text-capitalize=""
+       class="ion-text-lowercase"><span
+            style="color: #3f51b5">Dispatcheur:</span><BR>
+        {{dispatcher?.nom}}  {{dispatcher?.prenom}}</p>&nbsp;&nbsp;<a
+        style="color: #0f1d88cf"
+        href="tel:{{dispatcher?.tel}}">
+    <ion-icon name="call"></ion-icon>
+</a></ion-button>
+<ion-button *ngIf="!dispatcher" style="width: auto" color="success">
+    <p style="color: white;text-align: start  ; margin-bottom: 3%;margin-top: 5%"
+
+       class="ion-text-lowercase"><span
+            style="color: #3f51b5">Dispatcheur:</span><BR>
+        pas de dispatcheur
+    </p></ion-button>
+        </ion-item>
+    </ion-grid>
+</ion-header>
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <div class="spin" *ngIf="!isLoaded">
+        <ion-spinner name="circles" color="primary"></ion-spinner>
+    </div>
+    <div *ngIf="isLoaded&&course">
+
+        <div *ngFor="let affect of course?.affectationcourses;let i =index">
+            <div *ngIf="affect.status2!='6'&& affect.employe[0].replace('/api/employes/', '')===this.employeeid">
+                <div class="space-between">
+    
+                    <div class="followings">
+                        <ion-badge style=" background-color:#ff9800!important;" mode="ios"
+                                   *ngIf="affect.status1==='0'&& affect.employe[0].replace('/api/employes/', '')===this.employeeid"
+                                   (click)="openPopover($event,affect.id,affect.status1)">En
+                            Attente
+                        </ion-badge>
+                        <ion-badge *ngIf="affect.status1==='1'&&affect.status2==='0'"
+                                   (click)="annulercourseaffecter(affect.id)"
+                                   style=" background-color:#006a43 ;" mode="ios">Retour admin
+                        </ion-badge>
+                        <ion-badge *ngIf="affect.status1==='2'"
+                                   style="background-color:#8007a0 " mode="ios">Refusée
+                        </ion-badge>
+                        <ion-badge *ngIf="affect.status1==='3'"
+                                   style="background-color:#f04141 " mode="ios">Annulée
+                        </ion-badge>
+                        <ion-badge color="primary" mode="ios"></ion-badge>
+                    </div>
+    
+                    <div *ngIf="affect.status2!='6'">
+                        <div class="followings" *ngIf="affect.status1==='1'&& datcourse===today">
+                            <ion-badge *ngIf="affect.status2==='0'"
+                                       (click)="openPopoverconfirmation($event,affect.id,affect.status2)"
+                                       [color]="getColorStatus2(affect?.status2)" mode="ios"> En Attente
+                            </ion-badge>
+                            <ion-badge *ngIf="affect.status2==='1'"
+                                       (click)="openPopoverconfirmation($event,affect.id,affect.status2)"
+                                       [color]="getColorStatus2(affect?.status2)" mode="ios"> En Route
+                            </ion-badge>
+                            <ion-badge *ngIf="affect.status2==='2'"
+                                       (click)="openPopoverconfirmation($event,affect.id,affect.status2)"
+                                       [color]="getColorStatus2(affect?.status2)" mode="ios"> Surplace
+                            </ion-badge>
+                            <ion-badge *ngIf="affect.status2==='5'"
+                                       (click)="openPopoverconfirmation($event,affect.id,affect.status2)"
+                                       [color]="getColorStatus2(affect?.status2)" mode="ios"> Abord
+                            </ion-badge>
+                            <ion-badge *ngIf="affect.status2==='3'"
+                            [color]="getColorStatus2(affect?.status2)" mode="ios"> Absent
+                            </ion-badge>
+                            <ion-badge *ngIf="affect.status2==='8'"
+                            [color]="getColorStatus2(affect?.status2)" mode="ios"> Absent + Déplacement
+                            </ion-badge>
+                            <ion-badge *ngIf="affect.status2==='4'"
+                            [color]="getColorStatus2(affect?.status2)" mode="ios"> Terminée
+                            </ion-badge>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <ion-list>
+            <ion-item>
+                <ion-label>
+                    <ion-text class="date">
+                        {{formatTimeDateZone(course?.start) +' à '+ formatTimeZone(course?.start)}}
+                    </ion-text>
+    
+    
+                </ion-label>
+    
+    
+                <ion-img *ngIf="course?.medical==='2'"
+                         style="width:50px!important; height:30px!important;margin-left: 20px;"
+                         src="../../assets/image/ambulance.jpg"></ion-img>
+                <ion-img *ngIf="course?.medical==='1'"
+                         style="width:50px!important; height:30px!important;margin-left: 20px;"
+                         src="../../assets/image/taxi.jpg"></ion-img>
+                <ion-img *ngIf="course?.medical==='4'"
+                         style="width:50px!important; height:30px!important;margin-left: 20px;"
+                         src="../../assets/image/school.png"></ion-img>
+    
+    
+            </ion-item>
+        </ion-list>
+    
+        <div class="tcktContainer" *ngFor="let e of course?.courseClients;let i=index">
+            <ion-row>
+                <table>
+                    <tr>
+                        <td>
+                            <ion-chip class="ion-margin-start" style="background-color: #e7eaef ;margin-left: 0px">
+                                <ion-avatar style=" width: 30px;">
+                                    <img style="width: 30px;height: 30px;margin-top: 15px;" src="assets/avatar.svg">
+                                </ion-avatar>
+                                <ion-label style="float: left">
+                                    <p style="color: black;    line-height: 13px !important;"
+                                       text-lg-capitalize>{{e?.client?.nom}}
+                                        {{e?.client?.prenom}}
+                                    </p>
+                                </ion-label>
+    
+    
+                            </ion-chip>
+    
+                        </td>
+                        <td>
+                            <ion-chip style="background-color: #e7eaef ;" *ngIf="e.tel">
+                                <ion-label><a href="tel:{{e.tel}}">
+                                    <ion-icon name="call"></ion-icon>
+                                </a></ion-label>
+                            </ion-chip>
+                        </td>
+                        <td>
+                            <ion-chip style="float: right;background-color: #e7eaef ; "
+                                      (click)="navigateLocationdest(e['depart'],e?.destination)">
+    
+                                <a style="text-align: center">
+                                    <ion-icon name="map"></ion-icon>
+                                </a>
+    
+                            </ion-chip>
+                        </td>
+                        <td>
+                            <ion-chip style="background-color: #e7eaef ;" *ngIf="e?.duree">
+                                <a>
+                                    <ion-icon name="clock"></ion-icon>
+                                </a>&nbsp;
+                                <ion-label *ngIf="e?.duree"><span style="text-align: center"> {{e?.duree}}   </span>
+                                </ion-label>
+                            </ion-chip>
+                        </td>
+                    </tr>
+                </table>
+    
+    
+                <!--                    <ion-chip   class="ion-margin-end"-->
+                <!--                              (click)="navigateLocationdest(e['depart'],e?.destination)">-->
+    
+                <!--                        <ion-icon name="pin" style="font-size: 3px;"></ion-icon>-->
+                <!--                        <ion-label *ngIf="e?.distance">{{e?.distance}}</ion-label>-->
+    
+                <!--                    </ion-chip>-->
+    
+            </ion-row>
+            <br>
+            <ion-row>
+                <ion-col size="2" class="boderCol">
+                    <div class="timeDiv">
+                        <div class="circle">
+                            <ion-text color="danger">{{formatTimeZone(course?.start)}}
+                            </ion-text>
+                        </div>
+                        <br>
+    
+                        <div class="circle">
+                            <ion-text color="success">
+                                {{formatTimeZone(e?.heurearrive)}}
+                            </ion-text>
+                        </div>
+                    </div>
+                </ion-col>
+                <ion-col size="9">
+                    <div class="routeInformation" style="margin-left: -1%">
+                        <ion-item (click)="checkGPSPermission(e['depart'])">
+                            <ion-label no-margin style="white-space: initial !important;">
+                                <p style="color: #02393c">
+                                <span class="selectable" style="white-space: initial !important;"
+                                      *ngIf="e['depart'].indexOf(':')!==-1;else contenu_pas_bon1">{{e['depart'].split(':')[1]}}</span>
+    
+                                    <ng-template #contenu_pas_bon1>
+                                        <span class="selectable"
+                                              style="white-space: initial !important;">{{e['depart']}}</span>
+                                    </ng-template>
+                                </p>
+                            </ion-label>
+                        </ion-item>
+                        <ion-item (click)="checkGPSPermission(e['destination'])" lines="none">
+                            <ion-label style="white-space: initial !important;">
+                                <p style="color: #02393c">
+                                <span class="selectable" style="white-space: initial !important;"
+                                      *ngIf="e?.destination.indexOf(':')!==-1;else contenu_pas_bon2">{{e?.destination.split(':')[1]}}</span>
+    
+                                    <ng-template #contenu_pas_bon2>
+                                        <span style="white-space: initial !important;">{{e?.destination}}</span>
+                                    </ng-template>
+                                </p>
+                                <!--                            <div class="flex" style="margin-top: 5%">-->
+                                <!--                                <p *ngIf="e?.distance">-->
+                                <!--                                    <img src="assets/image/destination.png" style="    height: 32px;">&nbsp;-->
+                                <!--                                    <span class="selectable" *ngIf="e?.distance">{{e?.distance}}-->
+                                <!--                                        dès votre départ</span>-->
+                                <!--                                </p>-->
+                                <!--                            </div>-->
+    
+                            </ion-label>
+                        </ion-item>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </div>
+        <p class="horizontal_line"></p>
+    
+    
+        <ion-item *ngIf="course?.type">
+            <ion-label>Trajet</ion-label>
+            <ion-note slot="end" style="font-size: 14px;color: #3c54a3">       {{course?.type}}</ion-note>
+        </ion-item>
+        <ion-item *ngIf="course?.tarif!==''&&course?.tarif!=='  '&&course?.tarif!==null">
+            <ion-label>Tarif</ion-label>
+            <ion-note slot="end" style="font-size: 14px" color="danger">{{course?.tarif}} €</ion-note>
+        </ion-item>
+    
+        <ion-item>
+            <ion-label>Type de Payment</ion-label>
+            <ion-note slot="end" style="font-size: 14px" color="danger">{{course?.paiement}}</ion-note>
+        </ion-item>
+        <ion-item *ngIf="course?.paiement==='En compte'">
+            <ion-label>Entreprise</ion-label>
+            <ion-note slot="end" style="font-size: 14px">{{course?.entreprise?.raiso}}</ion-note>
+        </ion-item>
+        <ion-item>
+            <ion-label>Commentaire</ion-label>
+            <ion-note slot="end" style="font-size: 14px">{{course?.commentaire}}</ion-note>
+        </ion-item>
+        <ion-item *ngIf="course?.medical===2">
+            <ion-label>Kilométrage:</ion-label>
+            <ion-note slot="end" style="font-size: 14px">{{course?.kilometrage}}</ion-note>
+        </ion-item>
+    
+        <ion-item>
+            <ion-label>Fichier1:</ion-label>
+            <ion-note slot="end" style="font-size: 14px">
+                <a *ngIf="course?.filename1!==null&&course?.filename1!=='blob';else no"
+                   href="http://vps.innoyaservices.fr/images/clients/{{course?.filename1}}">
+                    <ion-icon color="primary" name="document" mode="ios"></ion-icon>
+                    &nbsp;</a>
+    
+                <!--      <a href="http://vps.innoyaservices.fr/images/clients/{{course?.filename1}}"-->
+                <!--         download>{{course?.filename1}}</a>-->
+                <!--            <a href='http://vps.innoyaservices.fr/images/clients/{{course?.filename1}}' download="true">-->
+    
+                <!--            </a> <img src="http://vps.innoyaservices.fr/images/clients/{{course?.filename1}}" width="20%" height="20%" >-->
+            </ion-note>
+        </ion-item>
+        <ion-item>
+            <ion-label>Fichier2:</ion-label>
+            <ion-note slot="end" style="font-size: 14px; text-decoration: none">
+                <a *ngIf="course?.filename2!==null&&course?.filename2!=='blob';else no"
+                   href="http://vps.innoyaservices.fr/images/clients/{{course?.filename2}}">
+                    <ion-icon color="primary" name="document" mode="ios"></ion-icon>
+                    &nbsp;</a>
+                <ng-template #no> Pas de fichier</ng-template>
+                <!--      <a href="http://vps.innoyaservices.fr/images/clients/{{course?.filename1}}"-->
+                <!--         download>{{course?.filename1}}</a>-->
+                <!--            <a href='http://vps.innoyaservices.fr/images/clients/{{course?.filename1}}' download="true">-->
+    
+                <!--            </a> <img src="http://vps.innoyaservices.fr/images/clients/{{course?.filename1}}" width="20%" height="20%" >-->
+            </ion-note>
+        </ion-item>
+        <ion-item>
+            <ion-label>Reference:</ion-label>
+            <ion-note slot="end" style="font-size: 14px">{{course?.id}}</ion-note>
+        </ion-item>
+
+    </div>
+</ion-content>
+

@@ -1,0 +1,481 @@
+
+ion-header{
+  ion-img{
+    width: 2rem;
+    margin-left: 10px;
+  }
+  ion-title{
+    //text-align: center;
+    font-size: 1rem;
+    
+  }
+}
+
+ion-content{
+  ion-item-divider{
+    padding-left: 0px!important;
+  }
+
+  p{
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    color: #3c54a3;
+    background: #f0f8ff;
+    font-size: medium;
+  }
+
+  ion-label{
+    margin: 0;
+  }
+
+  ion-thumbnail{
+    height: 21px;
+    width: 21px;
+  }
+
+  ion-radio-group{
+    width: 100%;
+    ion-grid{
+      padding: 0;
+      margin-top: 12px;
+      ion-col{
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+        ion-radio{
+          margin-right: 5px;
+        }
+        ion-label{
+          position: relative;
+          top: -5px;
+        }
+      }
+    }
+  }
+
+  ionic-selectable{
+    color: #222428;
+    background: #f0f8ff;
+    font-family: CustomFont;
+    font-size: 14px;
+    //border: 1px solid #3c54a3;
+    //border-radius: 9px;
+    text-align: center;
+    font-weight: bold;
+    //background-color: white;
+    //height: 72%;
+    width: 88%;
+  }
+
+  ion-select {
+    /* Applies to the value and placeholder color */
+    //color: #545ca7;
+  
+    /* Set a different placeholder color */
+    //--placeholder-color: #971e49;
+    max-width: inherit!important;
+    width: 100% !important;
+    text-align: center;
+    /* Set full opacity on the placeholder */
+    //--placeholder-opacity: 0!important;
+  }
+
+  #clients{
+    ion-item-divider{
+      color:#3c54a3;
+      ion-label{
+        font-family: var(--ion-font-family,inherit);
+        --color:#3c54a3;
+      }
+      img{
+        font-size: 25px;
+        text-align: right;
+        color: #3b5998;width: 25px;
+        height: 25px
+      }
+    }
+
+    ion-item{
+      ion-label{
+        font-size: 0.8rem;
+        --background:#e6e7f3;
+      }
+    }
+  }
+
+  //// spin and wifi for all pages
+
+  .spin {
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #wifi {
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.header-md:after {
+  background-image: none;
+}
+
+ion-searchbar {
+  --background: #e0e0e073;
+}
+
+ion-icon {
+  margin-top: 6px !important;
+  font-size: 1.3em;
+}
+
+
+h1 {
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: bold;
+
+}
+
+ion-list {
+  padding-top: 0;
+  padding-bottom: 0;
+  #ajouter{
+    margin-left: auto;
+    margin-right: auto!important;
+     width: 70%!important;
+     height: 30px!important;
+  }
+}
+
+ion-content {
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-left: 5px;
+    margin-top: 10px;
+  }
+
+  .submit-btn {
+    margin: 48px 12px 12px;
+  }
+}
+
+.speaker-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Due to the fact the cards are inside of columns the margins don't overlap
+ * properly so we want to remove the extra margin between cards
+ */
+ion-col:not(:last-of-type) .speaker-card {
+  margin-bottom: 0;
+}
+
+.speaker-card .speaker-item {
+  --min-height: 85px;
+}
+
+.speaker-card .speaker-item h2 {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.speaker-card .speaker-item p {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+.speaker-card ion-card-header {
+  padding: 0;
+}
+
+.speaker-card ion-card-content {
+  flex: 1 1 auto;
+
+  padding: 0;
+}
+
+.ios ion-list {
+  margin-bottom: 10px;
+}
+
+.md ion-list {
+
+  padding: 0;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.custom-file-input::before {
+  content: 'Select some files';
+  display: inline-block;
+  //background: linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+
+.custom-file-input:hover::before {
+  border-color: black;
+}
+
+.custom-file-input:active::before {
+  //background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.contact-popover {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  height: 100%;
+}
+
+.alert {
+  z-index: 20;
+}
+
+
+ion-app {
+  /*animation of native keyboard show*/
+  transition: margin 300ms;
+}
+
+ion-avatar {
+  width: 60px;
+  height: 60px;
+}
+
+ion-list-header {
+  color: var(--ion-color-medium-tint);
+  font-weight: 500;
+  min-height: 24px;
+}
+
+ion-item {
+  --max-height: 44px;
+}
+
+.toastCss {
+  --background: red !important;
+  --color: white !important;
+}
+
+ion-avatar {
+  width: 60px;
+  height: 60px;
+}
+
+ion-button {
+  width: 100%;
+  height: 20px;
+  --border-radius: 14px;
+}
+
+.my-custom-menu {
+  --width: 500px;
+}
+
+ion-header {
+  ion-grid {
+    ion-row {
+      .thumbnail {
+        text-align: -webkit-center;
+
+        ion-thumbnail {
+          position: relative;
+          min-width: 4rem;
+          min-height: 4rem;
+          border-radius: 20px;
+          padding: 5px;
+
+          img {
+            border-radius: 20px;
+          }
+        }
+
+        ion-thumbnail::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 20px;
+          padding: 3px;
+          background: linear-gradient(to bottom, #FD771D, #FD771D, #FD771D, #FD771D, #FD771D, #fca162, #FFDC80);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: destination-out;
+          mask-composite: exclude;
+        }
+
+        ion-fab {
+          margin: 0 -10px -14px 10px;
+          width: 20px;
+          height: 20px;
+
+          ion-fab-button {
+            width: 20px;
+            height: 20px;
+            --background: linear-gradient(to bottom, #FD771D, #FD771D, #FD771D, #FD771D, #FD771D, #fca162, #FFDC80);
+          }
+        }
+      }
+
+      ion-col {
+        align-self: inherit;
+
+        ion-label {
+          color: white;
+          font-size: 0.9rem;
+          font-weight: bold;
+
+          .info {
+            font-size: 0.75rem;
+            font-weight: normal;
+          }
+
+          .description {
+            margin: 5px 5px 0 0;
+            font-size: 0.75rem;
+
+            a {
+              text-decoration: none;
+            }
+          }
+        }
+      }
+
+      ion-slides {
+        ion-slide {
+          ion-col {
+            text-align: -webkit-center;
+
+            ion-thumbnail {
+              min-width: 3rem;
+              min-height: 3rem;
+              border-radius: 20px;
+              margin: 0;
+              border: 1px solid var(--ion-color-light);
+
+              ion-icon {
+                transform: translateY(1.6vh);
+                font-size: 1.6rem;
+              }
+
+              img {
+                border-radius: 20px;
+              }
+            }
+
+            p {
+              margin: 0;
+
+              ion-text {
+                font-size: 0.65rem;
+                font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+                font-weight: 300;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+}
+
+ion-button {
+
+  height: 63%;
+  --border-radius: 14px;
+}
+
+ion-toggle {
+  --background: #E74C3C;
+  --handle-background: no-repeat center/80% url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"%3E%3Ctitle%3Eionicons-v5-m%3C/title%3E%3Cpath d="M289.94,256l95-95A24,24,0,0,0,351,127l-95,95-95-95A24,24,0,0,0,127,161l95,95-95,95A24,24,0,1,0,161,385l95-95,95,95A24,24,0,0,0,385,351Z"/%3E%3C/svg%3E');
+  --handle-background-checked: no-repeat center/80% url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"%3E%3Cpolyline points="416 128 192 384 96 288" style="fill:none;stroke:%23fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px;"/%3E%3C/svg%3E');
+}
+
+fieldset {
+  font-family: sans-serif;
+  border: 2px solid #cccccc;
+  background: #dddddd12;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+fieldset legend {
+
+  color: #434343;
+  padding: 5px 10px;
+  font-size: 32px;
+  border-radius: 5px;
+
+
+}
+
+ion-select.select-text {
+
+  white-space: initial !important;
+}
+.alert-tappable.alert-radio {
+  height: auto;
+  contain: content;
+}
+
+.campiRicettaPersonale {
+  margin-left: 7%;
+  margin-right: 7%;
+  padding-top: 10%;
+  height: 100%;
+}
+
+.bordFieldset {
+  padding-top: 1px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 30px;
+  border: 1px white;
+  border-radius: 9px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 360px) {
+  .campiRicettaPersonale {
+    margin: 5px;
+  }
+  .bordFieldset {
+    padding: 5px;
+    margin: 5px;
+  }
+}
+.alert-radio-label.sc-ion-alert-ios {
+  padding-left: unset;
+  padding-right: unset;
+  -webkit-padding-start: 13px;
+  padding-inline-start: 13px;
+  -webkit-padding-end: 13px;
+  padding-inline-end: 13px;
+  white-space: pre-wrap;
+}

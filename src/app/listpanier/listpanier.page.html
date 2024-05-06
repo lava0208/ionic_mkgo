@@ -1,0 +1,225 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar color="primary" no-border>
+        <ion-buttons slot="start">
+            <ion-menu-toggle autoHide="false">
+                <ion-button>
+                    <img src="../../../../assets/image/menu.svg"/>
+                </ion-button>
+            </ion-menu-toggle>
+        </ion-buttons>
+
+        <ion-title>
+            List course
+        </ion-title>
+
+        <ion-buttons slot="end">
+            <ion-icon (click)="cancel()" style="color: white;font-size: 20px" slot="start" name="arrow-back"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+    <ion-refresher slot="fixed" style="z-index:2;background-color: transparent" (ionRefresh)="doRefreshe($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="spin" *ngIf="!isLoaded">
+        <ion-spinner name="circles" color="primary"></ion-spinner>
+    </div>
+    <div *ngIf="isLoaded&&data.length > 0" class="historyContent">
+
+        <span *ngFor="let course of data">
+<ion-card class="historyCards">
+
+            <ion-card-header style="padding: 4px!important;"    (click)="goToChat(course?.id)"
+            >
+
+                <ion-row>
+
+                    <ion-col size="4">
+                                        <ion-text style="font-family: 'Berlin Sans FB';font-size: 13px"
+                                        > {{formatTimeDateZone(course?.start)}} à {{formatTimeZone(course?.start)}}</ion-text>
+                    </ion-col>
+
+
+                    <ion-col>
+
+                        <ion-img *ngIf="course?.medical==='2'"
+                                 style="width:50px!important; height:30px!important;margin-top: -10px;"
+                                 src="../../../../assets/image/ambulance.jpg"></ion-img>
+                        <ion-img *ngIf="course?.medical==='1'"
+                                 style="width:50px!important; height:30px!important;margin-top: -10px;"
+                                 src="../../../../assets/image/taxi.jpg"></ion-img>
+
+
+                    </ion-col>
+
+                    <ion-col>
+
+                    </ion-col>
+                    <ion-col>
+                                              <ion-badge style="font-size: 8px; background-color: #f48e8c;    position: relative;
+    top: -9px;
+    left: 33px;"
+                                              >{{course?.courseClients.length}}</ion-badge>
+                        <img
+                                src="../../assets/image/user%20(6).png" style="      display: initial; height: 20px;margin-top: -10px;width: 20px;">
+
+
+                    </ion-col>
+                </ion-row>
+            </ion-card-header>
+            <p class="horizontal_line"></p>
+
+
+
+<br>
+
+
+
+
+
+
+            <div padding style="padding-top: 0px!important;">
+                <div
+                >
+                <ion-item style=" --inner-border-width: 0 0 0px 0;
+    font-size: 14px;
+    --min-height: 20px !important;
+    justify-content: center;
+    align-items: center;
+    display: flex;" slot="start">
+                    <ion-icon name="arrow-dropdown-circle" style="  font-size: 14px;
+    color: green;
+    margin-inline-end: 13px;" slot="start"></ion-icon>
+                    <ion-label class="selectable" style="    white-space: initial!important;"
+                               *ngIf="course?.courseClients[0]?.depart.indexOf(':')!==-1;else contenu_pas_bon1">{{course?.courseClients[0]?.depart.split(':')[1]}}</ion-label>
+                     <ng-template #contenu_pas_bon1>
+                            <ion-label class="selectable"
+                                       style="    white-space: initial!important;">{{course?.courseClients[0]?.depart}}</ion-label>
+                        </ng-template>
+                </ion-item>
+
+                <ion-item style=" --inner-border-width: 0 0 0px 0;
+    font-size: 14px;
+    --min-height: 20px !important;
+    justify-content: center;
+    align-items: center;
+    display: flex;">
+                    <div class="virtical_dash" style="height: 7px !important;
+  width: 74%;
+  border-style: dashed;
+  display: flex;
+  border-left: dashed 1px;
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+  margin-left: 6.5px;" slot="start"></div>
+                </ion-item>
+
+                <ion-item style=" --inner-border-width: 0 0 0px 0;
+font-size: 14px;
+--min-height: 20px !important;
+justify-content: center;
+align-items: center;
+display: flex;">
+                    <ion-icon name="pin" style=" font-size: 14px;
+    color: orange;
+    margin-inline-end: 13px;" slot="start"></ion-icon>
+                     <ion-label class="selectable" style="    white-space: initial!important;"
+                                *ngIf="course?.courseClients[0]?.destination.indexOf(':')!==-1;else contenu_pas_bon2">{{course?.courseClients[0]?.destination.split(':')[1]}}</ion-label>
+                     <ng-template #contenu_pas_bon2>
+                            <ion-label class="selectable"
+                                       style="    white-space: initial!important;">{{course?.courseClients[0]?.destination}}</ion-label>
+                        </ng-template>
+
+                </ion-item>
+                     <ion-row>
+        <ion-col class="date">
+
+        </ion-col>
+        <ion-col class="bank">
+{{course?.courseClients[0]?.client.nom}}&nbsp;{{course?.courseClients[0]?.client.prenom}}
+        </ion-col>
+      </ion-row>
+
+</div>
+                <p class="horizontal_line"></p>
+
+
+
+
+<ion-grid class="card-footer" style="padding-left: 0;padding-right: 0">
+    <ion-row style="padding: 0">
+        <ion-col size="2" style="background: transparent;"> <a style="color: #6B7EBB !important;"
+                                                               href="tel:{{course?.courseClients[0]?.tel}}">
+                                            <ion-icon name="call" style="margin-bottom:-0.9rem"></ion-icon>
+                                        </a></ion-col>
+
+
+
+        <ion-col size="4.5">
+                     <ion-badge (click)="affectcourse(course.id)" *ngIf="course['medical']!=='4'"
+                                style=" background-color:#006a43 ;float:right;margin-top:5%"
+                     >
+                Accepter
+            </ion-badge>
+</ion-col>
+
+        <ion-col size="4"
+                 style="background: transparent;">
+<span style="float: right; "
+      *ngIf="course?.tarif!==''&&course?.tarif!=='null'&&course?.tarif!==' '">&nbsp;&nbsp;{{course?.tarif}}
+    €</span>
+            <img *ngIf="course?.paiement==='En compte'" style=" float: right;      height: 26px;
+             width: 26px;" src="../../assets/image/credit-card.png">
+               <img *ngIf="course?.paiement==='CB'" style="  float: right;     height: 26px;
+           width: 26px;" src="../../assets/image/credit-card.png">
+           <img *ngIf="course?.paiement==='ESP'" style="   float: right;   height: 26px;
+             width: 26px;" src="../../assets/image/euro.png">
+</ion-col>
+    </ion-row>
+</ion-grid>
+
+
+            </div>
+
+</ion-card>
+        </span>
+
+
+      <!--  <div *ngIf="this.data?.length ===0&&isLoaded">
+
+
+            <div class="js_picks_no_results" style="display: block;"><div class="cobalt-EmptyState">
+                <img class="cobalt-EmptyState__Image" role="presentation" alt="" style="    top: 50%;
+
+    height: 90px;
+    margin-top: 58px;
+  "
+                     src="../../assets/image/5ec4c7c6db25b433905913e0_location.svg">
+
+
+
+
+
+                <h2 class="cobalt-EmptyState__Title">Oups ! Aucun résultat trouvé.</h2>
+                <div class="cobalt-EmptyState__Body">
+
+                </div>
+
+            </div>
+                <div class="bottom20"></div>
+            </div>
+
+
+        </div>-->
+
+    </div>
+
+    <div class="spin" *ngIf="isLoaded && !data.length">
+        <p>Pas de course</p>
+    </div>
+
+
+</ion-content>

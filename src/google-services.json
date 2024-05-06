@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "434529214363",
+    "project_id": "mkgochauffeur",
+    "storage_bucket": "mkgochauffeur.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434529214363:android:6c31702b28606483dd4b3e",
+        "android_client_info": {
+          "package_name": "com.innoyadev.dispatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "434529214363-tlgktcq82tnd3ift3tv326ba97q06l79.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-Vvt8sWYv8ODS3MaoRSWMEcZrVVmKfyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "434529214363-tlgktcq82tnd3ift3tv326ba97q06l79.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

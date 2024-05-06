@@ -1,0 +1,310 @@
+// http://ionicframework.com/docs/theming/
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+@import '~@ionic/angular/css/display.css';
+
+ion-footer {
+  ion-button {
+    width: 100%;
+  }
+}
+
+
+.custom-modal-trajet {
+  --background: #ffffff;
+
+
+  /* Styling modal */
+  padding: 10px;
+  border-radius: 10px;
+  width: 90%;
+  min-height: 70%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .ion-page {
+    overflow-y: initial !important
+  }
+}
+
+
+.selectable {
+
+  -webkit-user-select: text;
+
+  -moz-user-select: text;
+
+  -ms-user-select: text;
+
+  user-select: text;
+
+}
+
+input {
+  border-bottom: none !important;
+}
+
+li-ionic4-datepicker > input {
+  text-align: center !important;
+}
+
+.searchbar-input.sc-ion-searchbar-md {
+  box-shadow: none !important;
+  text-align: start !important;
+}
+
+.action-sheet-group.sc-ion-action-sheet-md:first-child {
+  padding-top: 6px;
+  border-radius: 10px !important;
+  margin: 10px !important;
+}
+
+.action-sheet-button-inner.sc-ion-action-sheet-md {
+  -ms-flex-pack: start;
+  justify-content: center;
+}
+
+.action-sheet-group.sc-ion-action-sheet-md:last-child {
+  padding-bottom: 0;
+  margin: 0px 10px 10px 10px !important;
+  border-radius: 10px;
+}
+
+span.rating {
+  color: var(--ion-color-warning) !important;
+}
+
+.popover_setting .popover-content {
+  --min-width: 600px !important;
+  --min-height: 150px !important;
+  --ion-background-color: red;
+  --ion-text-color: #ffffff;
+  background-color: red;
+}
+
+.popover-content.sc-ion-popover-md {
+  width: 90%;
+  margin: 0%; border-radius: 1% 10% !important;
+}
+
+
+
+@import '~animate.css/animate.min.css';
+
+.cart-modal {
+  --height: 50%;
+  --border-radius: 10px;
+  padding: 25px;
+
+}
+
+ion-select::part(icon) {
+  display: none;
+}
+
+ion-select::part(text) {
+  background-image: url(https://www.iconfinder.com/data/icons/ios-11-ui-elements-vol-1/29/25_dropdown_menu_down_arrow-512.png);
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 50%;
+}
+
+//.avatar-custom {
+//  --border-radius: 6px;
+//  align-self: flex-start;
+//  margin-top: 10px;
+//}
+//.white {
+//  color: white !important;
+//}
+//.medium {
+//  font-size: 16px;
+//}
+//.small {
+//  font-size: 11px;
+//  margin-top: 5px;
+//}
+
+
+.select2-container--bootstrap4 .select2-results__option--highlighted, .select2-container--bootstrap4
+.select2-results__option--highlighted.select2-results__option[aria-selected="true"] {
+  color: #212529 !important;
+  background-color: #ffffff !important;
+}
+
+.select2-container--bootstrap4.select2-container--focus .select2-selection {
+  border-color: #ced4da !important;
+  -webkit-box-shadow: 0 0 0 0.2rem #eee !important;
+  box-shadow: 0 0 0 0.2rem #f4f5f8 !important;
+}
+
+.select2-container--bootstrap4 .select2-dropdown .select2-results__option[aria-selected="true"] {
+  color: #ffffff !important;
+  background-color: #3c54a3 !important;
+}
+
+.sc-ion-popover-ios-h {
+  --width: 70% !important;
+
+}
+
+.ionic-selectable-item-is-selected, .ionic-selectable-item-is-disabled {
+  .label {
+    color: red;
+  }
+}
+
+.sc-ion-modal-md-h {
+  --width: 95% !important;
+  --min-width: auto !important;
+  --max-width: auto;
+  --height: 73%;
+  --min-height: auto;
+  --max-height: auto;
+  --overflow: hidden;
+  --border-radius: 4%;
+  --border-width: 0;
+  --border-style: none;
+  --border-color: transparent;
+  --background: var(--ion-background-color, #fff);
+  --box-shadow: 0px 0px 22px 1px ;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  contain: strict;
+}
+
+
+.searchbar-input.sc-ion-searchbar-md {
+  box-shadow: none !important;
+  text-align: center;
+}
+
+
+.ionic-selectable-cover {
+  height: 65% !important;
+  width: 80% !important;
+}
+
+.ionic-selectable-cover:focus {
+
+  outline: 0px !important;
+
+
+}
+
+.ionic-selectable-value {
+  flex: 1;
+  padding-top: 5px !important;
+  padding-bottom: 13px;
+  overflow: hidden;
+}
+
+.ionic-selectable-icon {
+  position: relative;
+  top: -10px !important;
+}
+
+.select-placeholder {
+  color: black !important;
+  /* opacity: 0.33; */
+}
+
+::ng-deep.select-icon {
+  width: 17px !important;
+  height: 29px !important;
+}
+
+.sc-ion-alert-ios-h {
+  --min-width: 86% !important;
+}
+
+
+ion-datetime {
+  color: black !important;
+}
+
+* {
+  font-family: 'Lato', sans-serif;
+}
+
+.additional-info {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+
+  .attendees {
+    position: relative;
+
+    img {
+      width: 25px;
+      height: 25px;
+    }
+
+    img:nth-child(2) {
+      position: absolute;
+      left: 16px;
+      z-index: 1;
+    }
+
+    img:nth-child(3) {
+      position: absolute;
+      left: 30px;
+      z-index: 2;
+    }
+
+    img:nth-child(4) {
+      position: absolute;
+      left: 44px;
+      z-index: 3;
+    }
+
+    .count {
+      position: absolute;
+      left: 58px;
+      top: 0;
+      z-index: 4;
+      width: 25px;
+      height: 25px;
+
+      p {
+        color: white;
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        z-index: 5;
+        font-size: 9px;
+        font-weight: bold;
+        margin: 0;
+      }
+    }
+  }
+
+  .time {
+    font-weight: bold;
+    color: #364F6B;
+  }
+}
+
+.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal>.swiper-pagination-bullets{
+  bottom: -2px!important;
+}

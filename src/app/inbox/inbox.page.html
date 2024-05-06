@@ -1,0 +1,90 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar color="primary" no-border>
+        <ion-buttons slot="start">
+            <ion-menu-toggle autoHide="false">
+                <ion-button>
+                    <img src="../../../../assets/image/menu.svg"/>
+                </ion-button>
+            </ion-menu-toggle>
+        </ion-buttons>
+
+        <ion-title>
+            Statistique
+        </ion-title>
+
+        <ion-buttons slot="end">
+            <ion-icon (click)="cancel()" style="color: white;font-size: 20px" slot="start" name="arrow-back"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="spin" *ngIf="!isLoaded">
+        <ion-spinner name="circles" color="primary"></ion-spinner>
+    </div>
+    <div *ngIf="isLoaded">
+        <ion-button expand="block" size="large" fill="outline" *ngIf="!debutClickDate" (click)="debutChangeDateClick()">Date début<br>{{debut}}</ion-button>
+        <ion-item *ngIf="debutClickDate">
+            <ion-datetime presentation="date"
+             (ionChange)="DebutmomentDateFr($event)"
+              done-text="Accepter"
+              cancel-text="Annuler"
+              min="1950" max="2099-10-31"
+              displayFormat="YYYY-MM-DD"
+              pickerFormat="YYYY-MM-DD"></ion-datetime>
+            <ion-icon name="calendar" slot="end"></ion-icon>
+          </ion-item>
+          <ion-button style="margin-top: 10px" expand="block" size="large" fill="outline" *ngIf="!finClickDate" (click)="finChangeDateClick()">Date fin<br>{{fin}}</ion-button>
+          <ion-item *ngIf="finClickDate">
+            <ion-datetime presentation="date"
+             (ionChange)="FinmomentDateFr($event)"
+              done-text="Accepter"
+              cancel-text="Annuler"
+              min="1950" max="2099-10-31"
+              displayFormat="YYYY-MM-DD"
+              pickerFormat="YYYY-MM-DD"></ion-datetime>
+            <ion-icon name="calendar" slot="end"></ion-icon>
+          </ion-item>
+        <ion-slide>
+            <img src="../../assets/slide1.png">
+            <div *ngIf="stastique" class="slider-text">
+                <h2>Rapport de Courses</h2>
+            </div>
+            <div class="count" *ngIf="stastique;else contenu_pas_bon">
+
+                <ion-item>
+                    <ion-label class="labez">Vous avez effectuez:</ion-label>
+                    <ion-note slot="end" style="font-size: 12px;color: #00838f;" color="danger">
+                        {{stastique?.nbcourse}}&nbsp;<ion-text style="color: #1e2023!important;font-size: 12px">Course (s)
+                        </ion-text>
+                    </ion-note>
+                </ion-item>
+                <ion-item *ngIf="stastique">
+                    <ion-label class="labez">Montant Total:</ion-label>
+                    <ion-note slot="end" style="font-size: 12px;color: #00838f;" color="danger">
+                        {{stastique?.totalTarif}}
+                        <ion-text style="color: #1e2023!important;font-size: 12px">&nbsp;€
+                        </ion-text>
+                    </ion-note>
+                </ion-item>
+                <ion-item *ngIf="stastique">
+                    <ion-label class="labez" style="white-space: pre-line">Nombre d' heures de travail :</ion-label>
+                    <ion-note slot="end" style="font-size: 12px;color: #00838f;" color="danger"> {{heur}} Heure
+                        et {{minute}} minutes
+                    </ion-note>
+                </ion-item>
+            </div>
+            <ng-template #contenu_pas_bon>
+                <div class="slider-text">
+                    <h4> Dans cette période vous n'avez pas des courses terminées</h4>
+                </div>
+            </ng-template>
+        </ion-slide>
+    </div>
+
+
+</ion-content>

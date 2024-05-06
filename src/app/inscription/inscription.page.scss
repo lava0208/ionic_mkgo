@@ -1,0 +1,57 @@
+::-webkit-scrollbar, *::-webkit-scrollbar {
+  display: none;
+  overflow: hidden;
+}
+
+ion-content {
+  overflow: hidden;
+
+}
+
+.scroll-content {
+  overflow: hidden;
+}
+
+ion-list {
+  background: transparent;
+  margin-top: -8 px;
+
+
+  ion-button {
+    width: 30vh;
+    margin: auto;
+  }
+
+  ion-text {
+    font-size: 0.7rem;
+  }
+
+  .alignItems {
+    ion-checkbox, ion-note {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    ion-checkbox {
+      margin-right: 1vw;
+      --size: 1.1rem;
+    }
+  }
+
+  .signup {
+    margin-top: 5vh;
+    font-size: 0.8rem;
+  }
+
+  ion-col {
+    ion-note {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+ion-select::part(placeholder) {
+  color: gray;
+  margin-left: -33%;
+  opacity: 1;
+}

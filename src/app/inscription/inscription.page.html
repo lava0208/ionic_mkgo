@@ -1,0 +1,194 @@
+<ion-content [fullscreen]="true" scrollY="true">
+    <br>
+    <img src="../../assets/image/LOGO-MKGO---FINAL--.png" style="display: block; width: 80%;
+margin: 0 auto;">
+
+    <br>
+
+    <form [formGroup]="inscriptionform">
+        <ion-list lines="none" class="ion-padding ion-text-center">
+
+            <ion-row>
+                <ion-col size="5.5">
+                    <ion-item lines="inset">
+                        <ion-input
+                                formControlName="nom"
+                                placeholder="Nom ">
+                        </ion-input>
+                    </ion-item>
+                    <ion-text
+                            class="ion-text-left"
+                            color="danger"
+                            *ngIf="!inscriptionform.get('nom').valid && inscriptionform.get('nom').touched||submittedinscription">
+                        <p
+                                class="error"
+                                *ngIf="inscriptionform.get('nom').invalid && inscriptionform.get('nom').errors.required">
+                            *Nom Obligatoire
+                        </p>
+
+
+                    </ion-text>
+                </ion-col>
+                <ion-col size="5.5">
+                    <ion-item lines="inset">
+                        <ion-icon
+                                name="person-outline" slot="end" color="medium">
+                        </ion-icon>
+                        <ion-input
+                                formControlName="prenom"
+                                placeholder="Prenom">
+                        </ion-input>
+                    </ion-item>
+                    <ion-text
+                            class="ion-text-left"
+                            color="danger"
+                            *ngIf="!inscriptionform.get('prenom').valid && inscriptionform.get('prenom').touched||submittedinscription">
+                        <p
+                                class="error"
+                                *ngIf="inscriptionform.get('prenom').invalid && inscriptionform.get('prenom').errors.required">
+                            *Prenom Obligatoire
+                        </p>
+
+
+                    </ion-text>
+                </ion-col>
+            </ion-row>
+
+
+            <ion-item class="ion-margin-vertical" lines="inset">
+
+                <ion-icon
+                        name="mail-outline" slot="end" color="medium">
+                </ion-icon>
+                <ion-input formControlName="mail" placeholder=" Adresse Email">
+                </ion-input>
+            </ion-item>
+            <ion-text
+                    class="ion-text-left"
+                    color="danger"
+                    *ngIf="!inscriptionform.get('mail').valid && inscriptionform.get('mail').touched||submittedinscription">
+                <p
+                        class="error"
+                        *ngIf="inscriptionform.get('mail').invalid && inscriptionform.get('mail').errors.required">
+                    *Email Obligatoire
+                </p>
+                <p
+                        class="error"
+                        *ngIf="inscriptionform.get('mail').invalid && inscriptionform.get('mail').errors.email">
+                    *Veuillez entrer adresse e-mail valide
+                </p>
+
+            </ion-text>
+
+
+            <ion-item class="ion-margin-vertical" lines="inset">
+                <ion-icon
+                        name="call-outline" slot="end" color="medium">
+                </ion-icon>
+                <ion-input formControlName="tel"
+                           type="text"
+                           placeholder="  Téléphone">
+                </ion-input>
+            </ion-item>
+            <ion-text
+                    class="ion-text-left"
+                    color="danger"
+                    *ngIf="!inscriptionform.get('tel').valid && inscriptionform.get('tel').touched||submittedinscription">
+                <p
+                        class="error"
+                        *ngIf="inscriptionform.get('tel').invalid && inscriptionform.get('tel').errors.required">
+                    *Téléphone Obligatoire
+                </p>
+
+
+            </ion-text>
+
+            <ion-item class="ion-margin-vertical" lines="inset">
+                <ion-icon
+                        name="map-outline" slot="end" color="medium">
+                </ion-icon>
+                <ion-input
+                        type="text" formControlName="adresse"
+                        placeholder="  Adresse">
+                </ion-input>
+            </ion-item>
+            <ion-text
+                    class="ion-text-left"
+                    color="danger"
+                    *ngIf="!inscriptionform.get('adresse').valid && inscriptionform.get('adresse').touched||submittedinscription">
+                <p
+                        class="error"
+                        *ngIf="inscriptionform.get('adresse').invalid && inscriptionform.get('adresse').errors.required">
+                    *Adresse Obligatoire
+                </p>
+
+            </ion-text>
+
+<!--            <ion-item class="ion-margin-vertical" lines="inset">-->
+
+<!--                <ion-icon slot="end" name="calendar" mode="ios" style="font-size: 25px"-->
+<!--                          (click)="showDateTimepicker()"></ion-icon>-->
+
+<!--                <span style="color:#8f8f8f">&nbsp; {{myDateNTime}}</span>-->
+
+<!--            </ion-item>-->
+            <ion-item class="ion-margin-vertical" lines="inset">
+                <ion-icon
+                        name="lock-closed-outline" slot="end" color="medium">
+                </ion-icon>
+                <ion-input
+                        type="password" formControlName="password"
+                        placeholder="  Mot de passe">
+                </ion-input>
+            </ion-item>
+            <ion-text
+                    class="ion-text-left"
+                    color="danger"
+                    *ngIf="!inscriptionform.get('password').valid && inscriptionform.get('password').touched||submittedinscription">
+                <p
+                        class="error"
+                        *ngIf="inscriptionform.get('password').invalid && inscriptionform.get('password').errors.required">
+                    *Mot de passe Obligatoire
+                </p>
+
+
+            </ion-text>
+            <br>
+            <ion-button color="secondary" shape="round" (click)="inscription()">Inscription</ion-button>
+            <p class="signup">
+                <ion-note>
+                    déjà Inscrit ?
+                    <ion-text routerLink="/login" color="secondary">Connectez-vous</ion-text>
+                </ion-note>
+            </p>
+        </ion-list>
+    </form>
+</ion-content>
+<!--<ion-content padding margin-top>-->
+
+
+<!--      <ion-list>-->
+<!--        <ion-item lines="none">-->
+<!--          <ion-input class="placeholdertext inputField" type="text" placeholder="name@example.com" [(ngModel)]="email"-->
+<!--                     padding-start></ion-input>-->
+<!--        </ion-item>-->
+
+<!--        <ion-item lines="none">-->
+<!--          <ion-input class="placeholdertext inputField" type="password" placeholder="Password" [(ngModel)]="password"-->
+<!--                     padding-start clearInput></ion-input>-->
+<!--        </ion-item>-->
+
+<!--        <div padding-vertical padding-horizontal>-->
+<!--          <ion-button color="secondary" expand="block" class="btnSubmit" (click)="register()">Sign-->
+<!--            Up-->
+<!--          </ion-button>-->
+<!--        </div>-->
+<!--      </ion-list>-->
+
+<!--</ion-content>-->
+
+<!--<ion-footer>-->
+<!--  <div class="contentBgColor" text-center padding-bottom (click)="gotoLoginformHome()">-->
+<!--    <ion-label class="footerBottomText">Already have an account? <b>Sign In</b></ion-label>-->
+<!--  </div>-->
+<!--</ion-footer>-->

@@ -1,0 +1,92 @@
+ion-menu ion-content {
+  * {
+    font-family: lato;
+  }
+  letter-spacing: 0.5px;
+
+  .main-header {
+    height: 25vh;
+    width: 120%;
+    background: linear-gradient(90deg, var(--ion-color-success) -23%, var(--ion-color-primary) 53%);
+    box-shadow: 0 1px 91px var(--ion-color-light);
+    border-radius: 0 0 50% 50%;
+    margin-left: -4.5vh;
+    div {
+      transform: translateY(3vh);
+      ion-avatar {
+        width: 10vh;
+        height: 10vh;
+        background: var(--ion-color-white);
+        margin-bottom: 5px;
+        border: 7px solid var(--ion-color-primary);
+      }
+      ion-label {
+        font-weight: bold;
+
+        p {
+          margin-top: 3px;
+          ion-text {
+            font-size: 0.7rem;
+          }
+        }
+      }
+    }
+  }
+  .menu-items {
+    padding-left: 20px;
+    ion-item.selected {
+      --background: rgba(var(--ion-color-primary-rgb), 0.14);
+      border-left: 5px solid var(--ion-color-secondary);
+      ion-label {
+        color: var(--ion-color-secondary);
+        font-weight: bold;
+      }
+    }
+    ion-item.selected ion-icon {
+      color: var(--ion-color-secondary);
+    }
+  }
+}
+
+ion-menu ion-footer {
+  ion-toolbar {
+    border-radius: 10px 10px 0 0;
+  }
+}
+.thumbnail {
+  text-align: -webkit-center;
+  ion-thumbnail {
+    position: relative;
+    min-width: 4rem;
+    min-height: 4rem;
+    border-radius: 20px;
+    padding: 5px;
+    img {
+      border-radius: 20px;
+    }
+  }
+  ion-thumbnail::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    padding: 3px;
+    background: linear-gradient(to bottom, #FD771D, #FD771D, #FD771D, #FD771D, #FD771D, #fca162, #FFDC80);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+  }
+  ion-fab {
+    margin: 0 -10px -14px 10px;
+    width: 20px;
+    height: 20px;
+    ion-fab-button {
+      width: 20px;
+      height: 20px;
+      --background: linear-gradient(to bottom,  #FD771D, #FD771D, #FD771D, #FD771D, #FD771D, #fca162, #FFDC80);
+    }
+  }
+}
